@@ -128,12 +128,12 @@ alert('Done!');
 ```javascript
 // Function Declaration
 function sum(a, b) {
-	return a + b;
+  return a + b;
 }
 
 // Function Expression
 let sum = function(a, b) {
-	return a + b;
+  return a + b;
 };
 ```
 
@@ -155,24 +155,24 @@ let sum = function(a, b) {
 - Debugger command
 ```javascript
 function hello(name) {
-	let phrase = `Hello, ${name}!`;
-	
-	debugger; // the debugger stop here
-	
-	say(pharase);
+  let phrase = `Hello, ${name}!`;
+  
+  debugger; // the debugger stop here
+  
+  say(pharase);
 }
 
 function say(phrase) {
-	alert(`** ${phrase} **`);
+  alert(`** ${phrase} **`);
 }
 ```
 ![debugger command](http://javascript.info/article/debugging-chrome/chrome-sources-debugger-pause.png)
 
 #### Coding style
 - Style guides
-	- [Google Javascript Style Guide](https://google.github.io/styleguide/jsguide.html)
-	- [Airbnb Javascript Style Guide](https://github.com/airbnb/javascript)
-	
+  - [Google Javascript Style Guide](https://google.github.io/styleguide/jsguide.html)
+  - [Airbnb Javascript Style Guide](https://github.com/airbnb/javascript)
+  
 #### Comments
 - Describe the architecture
 - Document a function usage. [JSDoc](https://en.wikipedia.org/wiki/JSDoc)
@@ -211,7 +211,7 @@ With the spec, we can safely improbe, change, even rewirete the function from sc
 let fruit = prompt("Which fruit to buy?", "apple");
 
 let bag = {
-	[fruit]: 5, // the name of the property is taken from the variable fruit
+  [fruit]: 5, // the name of the property is taken from the variable fruit
 };
 
 alert( bag.apple ); // 5 if fruit="apple"
@@ -221,8 +221,8 @@ alert( bag.apple ); // 5 if fruit="apple"
 // Object.assign(dest[, src1, src2, src3, ...])
 
 let usr = {
-	name: "John",
-	age: 30
+  name: "John", 
+  age: 30
 };
 
 let clone = Object.assign({}, user);
@@ -275,26 +275,26 @@ There are 3 types (hints) of it:
 **To do the conversion, Javascript tries to find and call three object methods:**
 1. Call `obj[Symbol.toPrimitive](hint)` if the method exists,
 2. Otherwise if hint is "string"
-	- try `obj.toString()` and `obj.valueOf()`, whatever exists.
+  - try `obj.toString()` and `obj.valueOf()`, whatever exists.
 3. Otherwise if hint is "number" or "default"
-	- try `obj.valueOf()` and `obj.toString()`, whatever exists.
+  - try `obj.valueOf()` and `obj.toString()`, whatever exists.
 
 ```javascript
 obj[Symbol.toPrimitive] = function(hint) {
-	// return a primitive value
-	// hint = one of "string", "number", "default"
+  // return a primitive value
+  // hint = one of "string", "number", "default"
 }
 ```
 
 ```javascript
 let user = {
-	name: "Jone",
-	money: 1000,
-	
-	[Symbol.toPrimitive](hint) {
-		alert(`hint: ${hint}`);
-		return hint == "string" ? `{name: "${this.name}"}` : this.money;
-	}
+  name: "Jone",
+  money: 1000,
+  
+  [Symbol.toPrimitive](hint) {
+    alert(`hint: ${hint}`);
+    return hint == "string" ? `{name: "${this.name}"}` : this.money;
+  }
 };
 
 // conversion demo:
@@ -338,11 +338,11 @@ Inside a function, we can check whether it was called with `new` or without it, 
 
 ```javascript
 function User(name) {
-	if (!new.targer) { // if you run me without new
-		return new User(name); // ...I will add new for you
-	}
-	
-	this.name = name;
+  if (!new.targer) { // if you run me without new
+    return new User(name); // ...I will add new for you
+  }
+  
+  this.name = name;
 }
 
 let john = User("John"); // redirect call to new User
