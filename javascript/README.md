@@ -614,10 +614,400 @@ map.set('1', 'str1')
 
 - Destructuring assignment allows for instantly mapping an object or array onto many variables.
 - The object syntax:
+
   `let {prop: varName = default, ...rest} = object'`
+  
   This means that property `prop` should go into the variable `varName` and, if no such property exists, then `default` value should be used.
 - The array syntax:
+
   `let [item1 = default, item2, ...rest] = array;`
+  
   The first item goes to `item1`, the second goes into `item2`, all the rest makes the array `rest`.
 - For more complex cases, the left side must have the same structure as the right one.
+
+#### Date and time
+
+- Date and time in Javascript are represented with the `Date` object. We can't create "only date" or "only time": `Date` objects always carray both.
+- Months are counted from zero (yes, January is a zero month).
+- Days of week in `getDay()` are also counted from zero (that's Sunday).
+- `Date` auto-corrects itself when out-of-range components are set. Good for adding/subtracting days/months/hours.
+- Dates can be subtracted, gibing their difference in milliseconds. That's because a `Date` becomes the timestamp when converted to nmmber.
+- User `Date.now()` to get the current timestamp fast.
+
+#### JSON methods, toJSON
+
+- `JSON.stringify` to convert objects into JSON.
+- `JSON.parse` to convert JSON back into an object.
+
+Natively supported JSON types are:
+- Object `{ ... }`
+- Arrays `[ ... ]`
+- Primitives:
+  - strings, numbers, boolean values `true/false`, `null`
+
+The full syntax of `JSON.stringify` is:
+
+`let json = JSON.stringify(value[, replacer, space])`
+
+**value** A value to encode.
+
+**replacer** Array of properties to encode or a mapping function `function(key, value)`.
+
+**space** Amount of space to use for formatting
+
+The full syntax of `JSON.parse` is:
+
+`let value = JSON.parse(str[, receiver]);`
+
+**str** JSON-string to parse.
+
+**receiver** Optional function(key, value) that will be called for each `(key, value)` pair and can transform the value.
+
+- JSON is a data format that has its own independent standard and libraries for most programming languages.
+- JSON supports plain objects, arrays, strings, numbers, booleans and `null`.
+- Javascript provides methods `JSON.stringify` to serialize into JSON and `JSON.parse` to read from JSON.
+- Both methods support transformer functions for smart reading/writing.
+- If an object has `toJSON`, then it is called by `JSON.stringify`.
+
+                     
+----
+
+### Advanced working with functions
+
+#### Recursion and stack
+
+- *Recursion* is a programming term that means a "self-calling" function. Such functions can be used to solve certain tasks in elegant ways.
+  When a function calls itself, that's calld a *recursion step*. The *basis* of recursion is function arguments that make the task so simple that the function does not make further calls.
+- A recursively-defined data structure is a data structure that can be defined using itself.
+  For instance, the linked list can be defined as a data structure consisting of an object referencing a list (or null).
   
+  `list = { value, next -> list }`
+
+#### Rest parameters and spread operator
+
+- The rest parameters must be at the end
+
+    ```javascript
+    function f(arg1, arg2, ...rest) { }
+    ```
+    The `...rest` must always be last.
+    
+- Arrow functions do not have "arguments".
+
+When we see `"..."` in the code, it is either rest parameters or the spread operator.
+There's an easy way to distinguish between them:
+
+- When `...` is at the end of function parameters, it's "rest parameters" and gathers the rest of the list of arguments into an array.
+- When `...` occurs in a function call or alike, it's called a "spread operator" and expands an array into a list.
+
+Use patterns:
+
+- Rest parameters are used to create functions that accept any number of arguments.
+- The spread operator is used to pass an array to functions that normally require a list of many arguments.
+
+Together they help to travel between a list and an array of parameters with ease.
+
+All arguments of a function call are also avaliable in "old-style" `arguments`: array-like iterable object.
+
+#### Closure
+
+The **Lexical Environment** object consists of two parts:
+
+1. *Environment Record* - an object that has all local variables as it properties (and some other information like the value of `this`).
+2. A reference to the *outer lexical environment*, usually the one associated with the code lexically right outside of it (outside of the current curly brackets).
+
+**Closures**
+
+A closure is a function that remembers its outer variables and can access them.
+
+That is: they automatically remember where they were created using a hidden **[[Environment]]** property, and all of them can access outer variables.
+
+**IIFE(Immediately-invoked funtion expression)**
+
+The Function Expression is wrapped with brackets `(function { ... })`, because when javascript meets `"function"` in the main code flow, it understands it as the start of a Function Declaration.
+
+```javascript
+// Ways to create IIFE
+
+(function() {
+  alert("Brackets around the function");
+})();
+
+(function() {
+  alert("Brackets around the whole thing");
+}());
+
+!function() {
+  alert("Bitwise NOT operator starts the expression");
+}();
+
++function() {
+  alert("Unary plus starts the expression");
+}();
+```
+
+#### The Old "var"
+
+- "var" has no block scope. 
+- "var" are processed at the function start. (Declarations are hoisted, but assignments are not.)
+
+There are two main differences of `var` :
+
+1. Variables have no block scope, they are visible minimum at the function level.
+2. Variable declaration are processed at function start.
+
+#### Global object
+
+**"this" and global object**
+
+1. In the browser, the value of `this` in the global area is `window`: `this === window // true`
+
+2. When a function with `this` is called in **non-strict mode**, it gets the global object as `this`: 
+
+#### Function object, NFE
+
+- Functions are objects.
+- Fuctions properties:
+  - `name` - the function name, Exists not only when given in the function definition, but also for assignments and object properties.
+  - `length` - the number of arguments in the function definition. *Rest* parameters are not counted.
+
+If the function is decalred as a Function Expression (not in the main code flow), and it carries the name, then it is called a *Named Function Expression*.
+The Name can be used inside to reference itself, for recursive calls or such.
+
+Also, functions may carry additional properties.
+
+**Named Function Expression**, or **NFE**, is a term for Function Expressions that have a name.
+
+
+#### The "new Function" syntax
+
+The syntax for creating a function:
+
+`let func = new function([arg1[, arg2[, ...argN],] functionBody)`
+
+For historical reason, arguments can also be given as a comma-separated list.
+
+These three mean the same:
+
+```javascript
+new Function('a', 'b', 'return a + b'); // basic syntax
+new Function('a,b', 'return a + b'); // comma-separated
+new Function('a, b', 'return a + b'); // comma-separated with spaces
+```
+
+Function created with `new Function`, have `[[Environment]]` referencing the global Lexical Environment, not the outer one.
+Hence, they cannot use outer variables. But that's actually good, because it saves us from error.
+Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
+
+#### Scheduling: setTimeout and setInterval
+
+- `setTimeout` allows to run a function onece after the internal of time. (Canceling with `clearTimeout`)
+  `let timerId = setTimeout(func|code, delay[, arg1, arg2, ...])`
+  
+- `setInterval` allows to run a function regularly with the interval between the runs.
+  `let timerId = setInterval(func|code, delay[, arg1, arg2, ...])`
+
+**Recursive setTimeout**
+
+```javascript
+/** instead of:
+let timerId = setInterval(() => alert('tick'), 2000);
+*/
+
+let timerId = setTimeout(function tick() {
+  alert('tick');
+  timerId = setTimeout(tick, 2000); // (*)
+}, 2000);
+```
+
+**Recursive `setTimeout` guarantees a delay between the executions, `setInterval` - does not.**
+
+![Recursive setTimeout](http://javascript.info/article/settimeout-setinterval/settimeout-interval@2x.png)
+
+- The recursive `setTimeout` guarantees the fixed delay (here 100ms).
+
+**setTimeout(..., 0)** (special use case)
+
+In the browser, there's a limitation of how often nested timer can run.
+The HTML5 standard says: "after five nested timers, the interval is forced to be at least four milliseconds.".
+
+- Methods `setInterval(func, delay, ...args)` and `setTimeout(func, delay, ...args)` allow to run the `func` regularly/once after `delay` milliseconds.
+- To cancel the execution, we should call `clearInterval/clearTimeout` with the value returned by `setInterval/setTimeout`.
+- Nested `setTimeout` calls in a more flexible alternative to `setInterval`. Also they can gurantee the minimal time *between* the executions.
+- Zero-timeout scheduling `setTimeout(..., 0)` is used to schedule the call "as soons as possible, but after the current code is complete".
+
+Some use cases of `setTimeout(..., 0)`:
+
+- To split CPU-hungry tasks into pieces, **so that the script doesn't "hang"**
+- To let the browser do something else while the process is going on (paint the progress bar).
+
+Please note that all schedulling methods do not *gurantee* the exact delay.
+We should not rely on that in the scheduled code.
+
+For example, the in-browser timer may slow down for a lot of reasons:
+
+- The CPU is overloaded.
+- The browser tab is in the background mode.
+- The laptop is on battey.
+
+All that may increase the minimal timer resolution (the minimal delay) to 300ms
+or even 1000ms depending on the browser and setting.
+
+#### Decorators and forwarding, call/apply
+
+**Decorator**: a special function that takes another function and alter it behavior.
+(다른 함수를 취해 그 동작을 변경시키는 특별한 함수.)
+
+**`func.call` for the context**
+
+`func.call(context, arg1, arg1, ...)`
+
+It runs func providing the first argument as `this`, and the next as the arguments.
+
+**`func.apply`**
+
+`func.apply(context, args)` `args` as the list of arguments.
+
+The only syntax difference between `call` and `apply` is that `call` expects a list of arguments,
+while `apply` takes an array-like object with them.
+
+- Use spread operator `...` for `call` **`apply` will probably be faster than `call`**
+
+```javascript
+let args = [1, 2, 3];
+
+func.call(context, ...args); // pass the array as list with spread operator
+func.apply(context, args); // is same as using apply
+```
+
+- The spread operator `...` allows to pass iterable `args` as the list to `call`.
+- The `apply` accepts only *array-like* `args`.
+
+**Borrowing a method**
+
+`[].join.call(arguments)` 
+
+*Decoragtor* is a wrapper around a function that alters its behavior. The main job is still carried out by the function.
+
+- `func.call(context, arg1, arg2, ...)` - calls `func` with given context and arguments.
+- `func.apply(context, args)` - calls `func` passing `context` as `this` and array-like `args` into a list of arguments.
+
+The generic *call forwarding* is usually done with `apply`:
+
+```javascript
+let wrapper = function() {
+  return original.apply(this, arguments);
+}
+```
+
+#### Function binding
+
+**Convenience method: `bindAll`**
+
+If an object has many methods and we plan to actively pass it around, then we could bind them all in a loop:
+
+```javascript
+for (let key in user) {
+  if (typeof user[key] == 'function') {
+    user[key] = user[key].bind(user);
+  }
+}
+```
+
+Method `func.bind(context, ...args)` returns a "bound variant" of function `func` that fixes the context `this` and first arguments if given.
+
+Usually we apply `bind` to fix `this` in an object method, so that we can pass it somewhere. For example, to `setTimeout`.
+There are more reason to `bind` in the modern development, we'll meet them later.
+
+
+
+Javascript libraries also probide functions for convenient mass binding, e.g. `_bindAll(obj)` in *lodash*.
+
+
+#### Currying and partials
+
+The full syntax of `bind`:
+
+`let bound = func.bind(context, arg1, arg12, ...);`
+
+Partial applicaton is useful when we have a very generic function, and want a less universal variant of it for convenience.
+
+For instance, we have a function `send(from, to, text)`. Then, inside a `user` object we may want to use a partial variant of it:
+`sendTo(to, text)` that sends from the current user.
+
+**Going partial without context**
+
+The native `bind` does not allow without context parameter. We can't just omit the context and jump to arguments.
+
+Example of this:
+
+```javascript
+function partial(func, ...argsBound) {
+  return function(...args) {
+    return func.call(this, ...argsBound, ...args);
+  }
+}
+
+// Usage:
+let user = {
+  firstName: "John",
+  say(time, phrase) {
+    alert(`[${time}] ${this.firstName}: ${phrase}!`);
+  }
+};
+
+// add a partial method that says something now fixing the first argument
+user.sayNow = partial(user.say, new Date().getHour() + ':' + new Date().getMinutes());
+
+user.sayNow("Hello");
+// something like: [10:00] Jone: Hello!
+```
+
+**Currying** is translating a function from callable as `f(a, b, c)` into callable as `f(a)(b)(c)`.
+
+Advanced currying allows both to keep the function callable normally and to get partials easily.
+
+- When we fix some arguments of an existing function, the resulting (less universal) function is called *a partial*.
+We can use `bind` to get a partial, but there are other ways also.
+
+  Partials are convenient when we don't want to repeat the same argument over and over again.
+  Like if we have a `send(from, to)` function, and `from` should always be the same for our task, we can get a partial and go on with It.
+  
+- *Curring* is a transform that makes `f(a, b, c)` callable as `f(a)(b)(c)`.
+Javascript implementations usually both keep the function callable normarlly and return the partial if arguments count is not enough.
+
+  Curring is great when we want easy partials. As we've seen in the logging example: the universal function `log(date, importance, message)` 
+  after curring gives us partials when called with one argument like `log(date)` or two arguments `log(date, importance)`.
+
+#### Array functions revisited
+
+**Arrow functions VS bind**
+
+- `.bind(this)` creates a "bound version" of the function.
+- The array `=>` doesn't create any binding. The function simply doesn't have `this`.
+The lookup of `this` is made exactly the same way as a regular variable search: in the outer lexical environment.
+
+**Arrows have no "arguments"**
+
+Arrow functions:
+
+- Do not have `this`.
+- Do not have `arguments`.
+- Can't be called with `new`.
+- (They also don't have `super`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
