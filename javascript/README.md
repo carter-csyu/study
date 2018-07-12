@@ -1,6 +1,6 @@
 # The Modern Javascript 
 
-### Reference
+## Reference
 - [javascript.info](http://javascript.info/)
 - [github-javascript-tutorial](https://github.com/iliakan/javascript-tutorial-en)
                      
@@ -9,47 +9,57 @@
 현재 학습중인 자바스크립트의 중요 내용들을 정히라는 공간이며,
 위 `javascript.info` 사이트를 통하여 정리된 내용의 상세 내용을 확인하실 수 있습니다.
 
-**Table of Contents**
-- Javascript Fundamentals
-- Code quality
-- Objects: the basics
-- Data types
-- Advanced working with functions
-- Objects, classes, inheritance
-- Error handling
+## Table of Contents
+
+1. Javascript Fundamentals
+2. Code quality
+3. Objects: the basics
+4. Data types
+5. Advanced working with functions
+6. Objects, classes, inheritance
+7. Error handling
+
+                     
 ----
 
-### Javascript Fundamentals
+## 1. Javascript Fundamentals
 
-#### The "script" tag
+## 1.1. The "script" tag
+
 - We can use `<script>` tag to add Javascript code to the pages.
 - The `type` and `language` attributes are not required.
 - A script in an external file can be inserted with `<script> src="path/to/script.js"></script>`
 
-#### The moden mode, "use strict"
+## 1.2. The moden mode, "use strict"
+
 - The strict mode is enabled by `"use strict"` at the top of the script. Also there are several language features like "classes" and "modules" that enable strict mode automatically.
 - The strict mode is supported by all modern browsers.
 
-#### Variables
+## 1.3. Variables
+
 - `let` - is a modern variable declaration. The code must be in strict mode to use `let` in Chrome (V8).
 - `var` - is an old-school variable declaration.
 - `const` - is like `let`, but the value of the variable can't be changed.
 
-#### Data Types
+## 1.4. Data Types
+
 - `number` for numbers of any kind: integer or floating-point.
 - `string` for strings. A string may have one or more characters, there's no separate single-character type.
+
 ```javascript
 // 3 types of quotes. (Double quotes, Single quotes, Backtics)
 let str = "Hello";
 let str2 = "Single quotes are ok too";
 let phrase = `can embed ${str}`;
 ```
+
 - `boolean` for `true`/`false`
 - `null` for unknown values - a standalone type that has a single value `null`.
 - `undefined` for unassigned values - a standalone type that has a single value `undefined`
 - `object` for more complex data structures.
 - `symbol` for unique identifiers.
 - The `typeof` oerator allows us to see which type is stored in the variable.
+
 ```javascript
 typeof undefined // "undefined"
 typeof 0 // "number"
@@ -61,7 +71,8 @@ typeof null // "object"
 typeof undefined // "object"
 ```
 
-#### Type Conversions
+## 1.5. Type Conversions
+
 - `ToString` - Occures when we output something, can be performed with `String(value)`.
 - `ToNumber` - Occures in math operations, can be performed with `Number(value)`.
 
@@ -83,26 +94,32 @@ typeof undefined // "object"
 - `"0"` and space-only string like `" "` are true as a boolean.
 
 
-#### Comparisons
+## 1.6. Comparisons
+
 - Comparison operators return a logical value.
 - Strings are compared letter-by-letter in the "dictionary" order.
 - When values different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
 - Values `null` and `undefined` equal `==` each other and equal any other value.
 - Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Making a separate check for `null/undeinfed` is a good idea.
 
-#### Interaction: alert, prompt, confirm
+## 1.7. Interaction: alert, prompt, confirm
+
 - `alert` shows a message.
 - `prompt` shows a message asking the user to input text. It returns the text or, if CANCEL or `key:Esc` is clicked, all browsers return `null`.
 - `confirm` shows a message and waits for the user to press "OK" or "CANcEL". It returns `true` for OK and `false` for CANCEL/`key:Esc`.
 
-#### Conditional operators: if, '?'
+## 1.8. Conditional operators: if, '?'
+
 - `Ternary operator '?'`
+
 ```javascript
 let accessAllowed = (age > 18) ? true : false;
 ```
 
-#### Loops: while and for
+## 1.9. Loops: while and for
+
 - Lables for break/continue, A *label* is an identifier with a colon before a loop:
+
 ```javascript
 outer: for (let i = 0; i < 3; i++) {
 
@@ -119,12 +136,14 @@ outer: for (let i = 0; i < 3; i++) {
 alert('Done!');
 ```
 
-#### Functions
+## 1.10. Functions
+
 - Values passed to a function as parameters are copied to its local varialbes
 - A function may access outer variables. But it works only from inside out. The code outside of the function doesn't see its local variables.
 - A funciton can return a value. If it doesn't, then its result is undefined.
 
 ** Function Declaration & Function Expression **
+
 ```javascript
 // Function Declaration
 function sum(a, b) {
@@ -143,16 +162,18 @@ let sum = function(a, b) {
 - Function Declarations are processed before the code block executed. They are visible everywhere in the block.
 - Function Expressions are created when the execution flow reaches them.
 
-#### Javascript specials
+## 1.11. Javascript specials
 - [Summary](http://javascript.info/javascript-specials/)
 
                      
 ----
 
-### Code quality
+## 2. Code quality
 
-#### Debugging in Chrome
+## 2.1. Debugging in Chrome
+
 - Debugger command
+
 ```javascript
 function hello(name) {
   let phrase = `Hello, ${name}!`;
@@ -166,14 +187,17 @@ function say(phrase) {
   alert(`** ${phrase} **`);
 }
 ```
+
 ![debugger command](http://javascript.info/article/debugging-chrome/chrome-sources-debugger-pause.png)
 
-#### Coding style
+## 2.2. Coding style
+
 - Style guides
   - [Google Javascript Style Guide](https://google.github.io/styleguide/jsguide.html)
   - [Airbnb Javascript Style Guide](https://github.com/airbnb/javascript)
   
-#### Comments
+## 2.3. Comments
+
 - Describe the architecture
 - Document a function usage. [JSDoc](https://en.wikipedia.org/wiki/JSDoc)
 
@@ -187,26 +211,29 @@ function say(phrase) {
 - Put them only if it's impossible to make the code so simple and self-descriptive that is doesn't require thoese.
 
 
-#### Automated testing with mocha
+## 2.4. Automated testing with mocha
+
 Automated testing means that tests are written **separately**, in addition to the code. They can be executed easily and check all the main use cases.
 
 **Behavior Driven Development (BDD)**
 In BDD, the spec goes first, followed by implementation. At the end we have both the spec and the code.
 The spec can be used in three ways:
+
 1. **Tests** gurantee that the code work correctly.
 2. **Docs** - the titles of `describe` and `it` tell what the function does.
 3. **Example** - the tests are actually working examples showing how a function can be used.
 
 With the spec, we can safely improbe, change, even rewirete the function from scratch and make sure it still works right.
 
-
                      
 ----
 
-### Objects: the basics
+## 3. Objects: the basics
 
-#### Objects
+## 3.1. Objects
+
 - Computed properties
+
 ```javascript
 let fruit = prompt("Which fruit to buy?", "apple");
 
@@ -216,7 +243,9 @@ let bag = {
 
 alert( bag.apple ); // 5 if fruit="apple"
 ```
+
 - Cloning and merging, `Object.assign`
+
 ```javascript
 // Object.assign(dest[, src1, src2, src3, ...])
 
@@ -227,26 +256,32 @@ let usr = {
 
 let clone = Object.assign({}, user);
 ```
+
 - To make a "real copy" (a clone) we can use `Object.assign` or `_.cloneDeep(obj)`.
 
-#### Garbage collection
+## 3.2. Garbage collection
+
 - Garbage collection is performed automatically. We cannot force or prevent it.
 - Objects are retained in memory while they are **reachable**
 - Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole.
 
 
-#### Symbole type
+## 3.3. Symbole type
+
 **Symbol** is a primitive type unique identifieres.
 
 Symbols are always different values, evnt if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key`1 as the name. Multiple call of `Symbol.for` return exactly the same symbol.
 
-#### Object methods, "this"
+## 3.4. Object methods, "this"
+
 **The value of Reference Type** is a three-value combination `(base, name, strict)`, where:
+
 - `base` is the object.
 - `name` is the property.
 - `strict` is true if `use strict` is in effect.
 
 **Arrow functions have noe "this"**
+
 Arrow function don't have "own" `this`.
 It's useful when we actually do not want to have a separate `this`, but rather to take it from the outer context.
 
@@ -260,7 +295,8 @@ The value of `this` is defined at run-time.
 - That function can be copied between objects.
 - When a function is called in the "method" syntax: `object.method()`, the value of `this` during the call is `object`.
 
-#### Object to primitive conversion
+## 3.5. Object to primitive conversion
+
 **ToPrimitive**
 When an object is used in the context where a primitive is required, for instance, in an `alert` or mathematical operations, it's converted to a primitive value using the `ToPrimitive` algorithm.
 
@@ -273,6 +309,7 @@ There are 3 types (hints) of it:
 - `"default"` (few operators)
 
 **To do the conversion, Javascript tries to find and call three object methods:**
+
 1. Call `obj[Symbol.toPrimitive](hint)` if the method exists,
 2. Otherwise if hint is "string"
   - try `obj.toString()` and `obj.valueOf()`, whatever exists.
@@ -329,7 +366,7 @@ alert(+user); // valueOf -> 1000
 alert(user + 500); // valueOf -> 1500
 ```
 
-#### Constructor, operator "new"
+## 3.6. Constructor, operator "new"
 
 The main purpose of constructors - to implement reusable object creation code.
 
@@ -355,14 +392,14 @@ alert(john.name); // John
                      
 ----
 
-### Data types
+## 4. Data types
 
-#### Methods of primitives
+## 4.1. Methods of primitives
 
 - Primitives excetp `null` and `undefined` provide many helpful methods.
 - Formally, thoes methods work via temporary objects, but Javaascript engines are well turned to optimize that internally, so they not expensive to call.
 
-#### Number
+## 4.2. Number
 
 - `toFixed` is a string. If the decimal part is shorter than required, zeroes are appended to the end:
   - We can convert it to a number using the unary plus or a `Number()` call: `+num.toFixed(5)`.
@@ -379,7 +416,7 @@ There is a special built-in method `Object.is` that compares value like `===`, b
   
 - `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` or `num.toFixed(precision)`.
 
-#### Strings
+## 4.3. Strings
 
 **Special characters**
 
@@ -414,7 +451,7 @@ There are other, less common "special" characters as well. Here's the list:
 - To compare string according to a language, use: `localCompare`, otherwise they are compared by character codes. 
 
 
-#### Arrays
+## 4.4. Arrays
 
 **Trailing comma**
 ```javascript
@@ -443,7 +480,7 @@ To loop over the elements of the array:
 - `for (let i in arr)` - **never use.**
 
 
-#### Array methods
+## 4.5. Array methods
 
 - To add/remove elements:
   - `push(...items)` add `items` to the end.
@@ -477,7 +514,7 @@ To loop over the elements of the array:
 
 [MDN web docs for Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 
-#### Iterables
+## 4.6. Iterables
 
 **`Symbol.iterator` (a special built-in symbol just for taht)**
 - When `for..of`starts, it calls that method (or error if not found).
@@ -545,7 +582,7 @@ There's a universal method **Array.from** that brings them together. It takes an
 - `mapFn` should be the function to apply to each element before adding to the array
 - `thisArg` allows to set `this` for it.
 
-#### Map, Set, WeakMap and WeakSet
+## 4.7. Map, Set, WeakMap and WeakSet
 
 **Chaining**
 
@@ -597,7 +634,7 @@ map.set('1', 'str1')
 
 `WeakMap` and `WeakSet` are used as "secondary" data structures in addition to the "main" object storage. Once the object is removed from the main storage, so it only stays in `WeakMap/WeakSet`, they clean up automatically.
 
-#### Object.keys, values, entries
+## 4.8. Object.keys, values, entries
 
 - `Object.keys(obj)` - returns an array of keys.
 - `Object.values(obj)` - returns an array of values.
@@ -610,7 +647,7 @@ map.set('1', 'str1')
 | Call syntax | `map.keys()`  | `Object.keys(obj)`, but not `obj.keys()` |
 | Returns     | iterable    | "real" Array                     |
 
-#### Destructuring assignment
+## 4.9. Destructuring assignment
 
 - Destructuring assignment allows for instantly mapping an object or array onto many variables.
 - The object syntax:
@@ -625,7 +662,7 @@ map.set('1', 'str1')
   The first item goes to `item1`, the second goes into `item2`, all the rest makes the array `rest`.
 - For more complex cases, the left side must have the same structure as the right one.
 
-#### Date and time
+## 4.10. Date and time
 
 - Date and time in Javascript are represented with the `Date` object. We can't create "only date" or "only time": `Date` objects always carray both.
 - Months are counted from zero (yes, January is a zero month).
@@ -634,7 +671,7 @@ map.set('1', 'str1')
 - Dates can be subtracted, gibing their difference in milliseconds. That's because a `Date` becomes the timestamp when converted to nmmber.
 - User `Date.now()` to get the current timestamp fast.
 
-#### JSON methods, toJSON
+## 4.11. JSON methods, toJSON
 
 - `JSON.stringify` to convert objects into JSON.
 - `JSON.parse` to convert JSON back into an object.
@@ -672,9 +709,9 @@ The full syntax of `JSON.parse` is:
                      
 ----
 
-### Advanced working with functions
+## 5. Advanced working with functions
 
-#### Recursion and stack
+## 5.1. Recursion and stack
 
 - *Recursion* is a programming term that means a "self-calling" function. Such functions can be used to solve certain tasks in elegant ways.
   When a function calls itself, that's calld a *recursion step*. The *basis* of recursion is function arguments that make the task so simple that the function does not make further calls.
@@ -683,7 +720,7 @@ The full syntax of `JSON.parse` is:
   
   `list = { value, next -> list }`
 
-#### Rest parameters and spread operator
+## 5.2. Rest parameters and spread operator
 
 - The rest parameters must be at the end
 
@@ -709,7 +746,7 @@ Together they help to travel between a list and an array of parameters with ease
 
 All arguments of a function call are also avaliable in "old-style" `arguments`: array-like iterable object.
 
-#### Closure
+## 5.3. Closure
 
 The **Lexical Environment** object consists of two parts:
 
@@ -746,7 +783,7 @@ The Function Expression is wrapped with brackets `(function { ... })`, because w
 }();
 ```
 
-#### The Old "var"
+## 5.4. The Old "var"
 
 - "var" has no block scope. 
 - "var" are processed at the function start. (Declarations are hoisted, but assignments are not.)
@@ -756,7 +793,7 @@ There are two main differences of `var` :
 1. Variables have no block scope, they are visible minimum at the function level.
 2. Variable declaration are processed at function start.
 
-#### Global object
+## 5.5. Global object
 
 **"this" and global object**
 
@@ -764,7 +801,7 @@ There are two main differences of `var` :
 
 2. When a function with `this` is called in **non-strict mode**, it gets the global object as `this`: 
 
-#### Function object, NFE
+## 5.6. Function object, NFE
 
 - Functions are objects.
 - Fuctions properties:
@@ -779,7 +816,7 @@ Also, functions may carry additional properties.
 **Named Function Expression**, or **NFE**, is a term for Function Expressions that have a name.
 
 
-#### The "new Function" syntax
+## 5.7. The "new Function" syntax
 
 The syntax for creating a function:
 
@@ -799,7 +836,7 @@ Function created with `new Function`, have `[[Environment]]` referencing the glo
 Hence, they cannot use outer variables. But that's actually good, because it saves us from error.
 Passing parameters explicitly is a much better method architecturally and causes no problems with minifiers.
 
-#### Scheduling: setTimeout and setInterval
+## 5.8. Scheduling: setTimeout and setInterval
 
 - `setTimeout` allows to run a function onece after the internal of time. (Canceling with `clearTimeout`)
   `let timerId = setTimeout(func|code, delay[, arg1, arg2, ...])`
@@ -853,7 +890,7 @@ For example, the in-browser timer may slow down for a lot of reasons:
 All that may increase the minimal timer resolution (the minimal delay) to 300ms
 or even 1000ms depending on the browser and setting.
 
-#### Decorators and forwarding, call/apply
+## 5.9. Decorators and forwarding, call/apply
 
 **Decorator**: a special function that takes another function and alter it behavior.
 (다른 함수를 취해 그 동작을 변경시키는 특별한 함수.)
@@ -900,7 +937,7 @@ let wrapper = function() {
 }
 ```
 
-#### Function binding
+## 5.10. Function binding
 
 **Convenience method: `bindAll`**
 
@@ -924,7 +961,7 @@ There are more reason to `bind` in the modern development, we'll meet them later
 Javascript libraries also probide functions for convenient mass binding, e.g. `_bindAll(obj)` in *lodash*.
 
 
-#### Currying and partials
+## 5.11. Currying and partials
 
 The full syntax of `bind`:
 
@@ -979,7 +1016,7 @@ Javascript implementations usually both keep the function callable normarlly and
   Curring is great when we want easy partials. As we've seen in the logging example: the universal function `log(date, importance, message)` 
   after curring gives us partials when called with one argument like `log(date)` or two arguments `log(date, importance)`.
 
-#### Array functions revisited
+## 5.12. Array functions revisited
 
 **Arrow functions VS bind**
 
@@ -996,8 +1033,535 @@ Arrow functions:
 - Can't be called with `new`.
 - (They also don't have `super`.
 
+                     
+----
+
+## 6. Objects, classes, inheritance
 
 
+## 6.1. Property flags and descriptors
+
+**Property flags**
+
+Object properties, besides a `value`, have three special attributes (so-called "flags"):
+
+- `writable` - if `true`, can be changed, otherwise it's read-only.
+- `enumerable` - if `ture`, then listed in loops, otherwise not listed.
+- `configurable` - if `true`, the property can be deleted and these attributes can be modifed. otherwise not.
+
+The method `Object.getOwnPropertyDescriptor` allows to query the *full* information about a property.
+
+The syntax is:
+
+`let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);`
+
+To change the flags, we can use `Object.defineProperty`.
+
+The syntax is:
+
+`Object.defineProperty(obj, propertyName, descriptor)`
+
+- If `enumerable` attribute is set `false`, then it won't appear in `for..in` loop, just like the bulit-in one
+It also excluded from `Object.keys`.
+
+- `Object.defineProperties(obj, {prop1: descriptor1, prop2: descriptor2, ...});`
+- `Object.getOwnPropertyDescriptors(obj)` - It can be used as a "flags-aware" way of cloning an object:
+
+```javascript
+let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+```
+
+## 6.2. Property getters and setters
+
+**Accessor properties**
+
+They are essentially function that work on getting and setting a value,
+but look like regular properties to an external code.
+
+```javascript
+let obj = {
+  get propName() {
+    // getter, the code excuted on getting obj.propName
+  }
+  
+  set propName(value) {
+    // setter, the code executed on setting obj.propName = value
+  }
+};
+```
+
+From outside, an accessor property looks like regular one.
+That's the idea of accessor properties. 
+
+**Accessor descriptors**
+
+For accessor properties, there is no `value` and `writable`, but instead there are `get` and `set` function.
+
+- `get` - a function without arguments, that works when a property is read.
+- `set` - a function with one argument, that is called when the property is set.
+- `enumerable` - same as for data properties.
+- `configurable` - same as for data properties.
+
+**Usage of special property `_propertyName`.**
+
+```javascript
+let user = {
+  get name() {
+    return this._name;
+  },
+
+  set name(value) {
+    if (value.length < 4) {
+      alert("Name is too short, need at least 4 characters");
+      return;
+    }
+    this._name = value;
+  }
+};
+
+user.name = "Pete";
+alert(user.name); // Pete
+
+user.name = ""; // Name is too short...
+```
+
+## 6.3. Prototypal inheritance
+
+**[[Prototype]**
+
+`[[Prototype]]` is either `null` or references another object.
+That object is called a "prototype".
+
+How to set *prototype*:
+
+- use `__proto__` - The value of `__proto__` can be either and object or `null`.
+All other values(like primitives) ar ignored.
+
+**The value of "this"**
+
+No matter where the method in found: in an object or its prototype. In a method call, `this` is always the object before the dot.
+
+- In Javascript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
+- We can use `obj.__proto__` to access it (there are other ways too, to be coverd soon).
+- The object referenced by `[[Prototype]]` is calld a "prototype".
+- If we wnat to read a property of `obj` or call a method, and it doesn't exist,
+then Javascript tries to find it in the prototype..
+Write/delete operations work directly on the object, they don't use the prototype (unless the property is actually a setter).
+- If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`.
+So methods always work with the current object even if they are inherited.
+
+
+## 6.4. F.prototype
+
+`F.prototype` here means a regular property named `"property"` on `F`.
+
+- The `Function` use the "prototype" property. 
+- The default `"prototype"` is an object with the only property `constructor`
+that points back to the function itself.
+
+```javascript
+function Rabbit() {}
+
+/* default prototype
+Rabbit.prototype = { constructor: Rabbit };
+*/
+```
+
+**...Javascript itself does not ensure the right `"constructor"` value.**
+
+In particular, if we replace the default prototype as a whole, then there will be no `"constructor"` in it.
+
+- The `F.prototype` property is not the same as `[[Prototype]]`. The only thing `F.prototype` does:
+it sets `[[Prototype]]` of new objects when `new F()` is called.
+- The value of `F.prototype` should be either an object or null: other values won't work.
+- the `"prototype"` property only has such a special effect when it set to a constructor function, and invoded with `new`.
+
+On regular objects the `prototype` is nothing special:
+
+```javascript
+let user = {
+  name: "Jone",
+  prototype: "Bla-bla" // no magic at all
+};
+```
+
+By default all functions have `F.prototype = { constructor: F }`, so we can get the constructor of an object by accessing its `"constructor"` property.
+
+
+## 6.5. Native prototypes
+
+**Object.prototype**
+
+There is no additional `[[Prototype]]` in the chain above `Object.prototype`:
+
+`alert(Object.prototype.__proto__); // null`
+
+- All built-in objects follow the same pattern.
+  - The methods are stored in the prototype (`Array.prototype`, `Object.prototype`, `Date.prototype` etc).
+  - The object itself stores only the data (array items, object properties, the date).
+- Primitives also store methods in prototypes of wrapper objects: `Number.prototype`, `String.prototype`,
+`Boolean.prototype`. Thre are no wrapper objects only for `undefined` and `null`.
+- Built-in prototypes can be modified or populated with new methods.
+But it's not recommended to change them. Probably the only allowable cause is 
+when we add-in a new standard, but not yet supported by the engine Javascript method.
+
+
+
+## 6.6. Methods for prototypes
+
+- `Object.create(proto[, descriptors])` - create an empty object with given `proto` as `[[Prototype]]` and optional property descriptors.
+- `Object.getPrototypeOf(obj)` - returns the `[[Prototype]]` of `obj`.
+- `Object.setPrototypeOf(obj, proto)` - sets the `[[Prototype]]` of `obj` to `proto`.
+
+**Object cloning** 
+
+We can use `Object.create` to perform an object cloning more powerful than copying properties in `for..in`:
+
+```javascript
+// fully identical sallow clone of obj
+let clone = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj));
+```
+
+**Getting all properties**
+
+- `Object.keys(obj)` / `Object.values(obj)` / `Object.entries(obj)` - returns an array of enumerable own string property
+names/values/key-value pairs. These methods only list *enumerable* properties, and those that have *strings as keys*.
+
+If we want symbolic properties:
+
+- `Object.getOwnPropertySymbols(obj)` - returns an array of all own symbolic property names.
+
+If we want none-enumerable properties:
+
+- `Object.getOwnPropertyNames(obj)` - returns an array of all own string property names.
+
+If we want all properties:
+
+- `Reflect.ownKeys(obj)` - returns an array of all own property names.
+
+Here's a brief list of methods we discussed in this chappter
+
+- `Object.create(proto[, descriptors])` - creates an empty object with given `proto` as `[[Prototype]]` (can be `null`) and optional property descriptors.
+- `Object.getPrototypeOf(obj)` - returns the `[[Prototype]]` of `obj` (same as `__proto__` getter).
+- `Object.setPrototypeOf(obj, proto)` - sets the `[[Prototype]]` of `obj` to `proto` (same as `__proto__` setter).
+- `Object.keys(obj)` / `Object.values(obj)` / `Object.entries(obj)` - returns an array of enumerable own string property names/values/key-value paris.
+- `Object.getOwnPropertySymbols(obj)` - returns an array of all own symbolic property names.
+- `Object.getOwnPropertyNames(obj)` - returns an array of all own string property names.
+- `Reflect.ownKeys(obj)` - returns an array of all own property names.
+- `obj.hasOwnProperty(key)` - returns `ture ` if `obj` has its own (not inherited) property named `key`.
+
+## 6.7. Class patterns
+
+- Functional class pattern
+- Factory class pattern
+- Prototype-based classes (o)
+  
+  Here are the advantages over the functional pattern:
+  
+  - In the functional pattern, each object has its own copy of every method. We assign a separate copy of `this.sayHi = function() { ... }` and other methods in the constructor.
+  - In the prototypal pattern, all methods are in `User.prototype` that is shared between all user objects. An object itself only store the data.
+  
+  So the prototypal pattern is more memory-efficient.
+  
+  ...But not only that. Prototypes allow us to setup the inheritance in a really efficient way.
+  Built-in Javascript object all use prototypes. Also there's a special syntax construct: "class" that provides nice-looking syntax for them.
+  
+- Prototype-based inheritance for classes
+
+According to the prototypal pattern:
+
+1. Methods are stored in `Class.prototype`.
+2. Prototypes inherit from each other.
+
+## 6.8. Classes
+
+The "class" construct allows to define prototype-based classes with a clean, nice-looking syntax.
+
+Prototype-bases class `User`:
+
+```javascript
+function User(name) {
+  this.name = name;
+}
+
+User.prototype.sayHi = function () {
+  alert(this.name);
+}
+
+let user = new User("Jone");
+user.sayHi();
+```
+
+Using `class` syntax:
+
+```javascript
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  sayHi() {
+    alert(this.name);
+  }
+}
+
+let user = new User("John");
+user.sayHi();
+```
+
+**Static methods**
+
+We can also assign methods to the class function, not to its "prototype". Such methods ar called *static*.
+
+```javascript
+class User {
+  static staticMethod() {
+    alert(this === user);
+  }
+}
+
+user.staticMethod(); // true
+```
+
+```javascript
+function User() { }
+
+User.staticMethod = function() {
+  alert(this === User);
+};
+```
+
+**Summary**
+
+The basic class syntax looks like this:
+
+```javascript
+class MyClass {
+  constructor( ... ) {
+    // ...
+  }
+  
+  method1(...) {}
+  method2(...) {}
+  get something() {}
+  set something(value) {}
+  static staticMethod(...) {}
+  
+  /// ...
+}
+```
+
+The value of `MyClass` is a function provided as `constructor`. If there's no `constructor`, then an empty function.
+
+In any case, methods listed in the class declaration become members of its `prototype`, with the exception of static methods that are written into the function itself and callable as `MyClass.staticMethod()`.
+Static methods are used when we need a function bound to a class, but not to any object of that class.
+
+## 6.9. Class inheritance, super`
+
+- Any expression is allowed after `extends`
+
+Classes provide `"super"` keyword for that.
+
+- `super.method(...)` to call a parent method.
+- `super(...)` to call a parent constructor (inside our constructor only).
+
+- `Symbol.specis` - built-int methods will use this as the constructor
+
+## 6.10. Class checking: "instanceof"
+
+The `instanceof` operator allows to check whether ans object belongs to a certain class.
+It also takes inheritance into account.
+
+Such a check may be necessary in many cases, here we'll use it for building a *polymorphic* function,
+the one that treats arguments differently depending on their type.
+
+The syntax is:
+
+`obj instanceof Class`
+
+It returns `true` if `obj` belongs to the `Class` (or a class inheriting from it).
+
+- `Symbol.hasInstance`
+  Most classes do not have `Symbol.hasInstance`. in that case, check if `Class.prototype` equals to one of prototypes in the `obj` prototype chain.
+  
+- `Symbol.toStringTag`  
+  The built-in `toString` can be extracted from the object and executed in the context of any other value.
+  And its result depends on that value.
+  
+  - For a number, it will be `[object Number]`
+  - For a boolean, it will be `[object Boolean]`
+  - For `null`: `[object Null]`
+  - For `undefined`: `[object Undefined]`
+  - For arrays: `[object Array]`
+  - ...etc (customizable using `Symbol.toStringTag`).
+
+|               | works for   |  returns      |
+|---------------|-------------|---------------|
+| `typeof`      | primitives  |  string       |
+| `{}.toString` | primitives, built-in objects, objects with `Symbol.toStringTag`   |       string |
+| `instanceof`  | objects     |  true/false   |
+  
+As we can see, `{}.toString` is technically a "more advanced" `typeof`.
+
+And `instanceof` operator really shines when we are working with a class hierarchy and want to check for the class taking into account inheritance.
+
+
+  
+## 6.11. Mixins
+
+```
+As defined in Wikipedia, a `mixin` is a class that contains methods for use by other classes without having to be the parent class of those other classes.
+
+In other words, a *mixin* provides methods that implement a certain behavior, but we do not use it alone, we use it to add the behavior to other classes.
+
+믹스인이란 프로토타입을 바꾸지 않고 한 객체의 프로퍼티를 다른 객체에게 ‘복사’해서 사용하는 방식이다.
+이 믹스인 패턴은 어디에 쓰일 수 있을까? 이 패턴은 기존에 있던 객체의 기능을 그대로 가져가면서 다른 객체에 추가할 때 주로 사용된다. 
+```
+
+**EventMixin**
+
+```javascript
+let eventMixin = {
+  /**
+   * Subscribe to event, usage:
+   *  menu.on('select', function(item) { ... }
+   */
+  on(eventName, handler) {
+    if (!this._eventHandlers) this._eventHandlers = {};
+    if (!this._eventHandlers[eventName]) {
+      this._eventHandlers[eventName] = [];
+    }
+    this._eventHandlers[eventName].push(handler);
+  },
+  
+  /**
+   * Cancel the subscription, useage:
+   *  menu.off('select', handler)
+   */
+  off(eventName, handler) {
+    let handlers = this._eventHandlers && this._eventHandlers[eventName];
+    if (!handlers) return;
+    for (let i = 0; i < handlers.length; i++) {
+      if (handlers[i] === handler) {
+        handlers.splice(i--, 1);
+      }
+    }
+  }
+  
+  /**
+   * Generate the evnet and attach the data to it
+   *  this.trigger('select', data1, data2);
+   */
+  trigger(eventName, ...args) {
+    if (!this._eventHandlers || !this._eventHandlers[eventName]) {
+      return; // no handlers for that event name
+    }
+    
+    // call the handlers
+    this._eventHandlers[eventName].forEach(handler => handler.apply(this, args));
+  }
+}
+```
+
+There are 3 methods here:
+
+1. `.on(eventName, handler)` - assigns function `handler` to run when the event with that name happens. 
+The handlers are stored in th `_eventHandlers` property.
+2. `.off(eventName, handler)` - removes the function from the handlers list.
+3. `.trigger(eventName, ...args)` - generates the event: all assigned handlers are called and `args` are passed as arguments to them.
+
+Usage:
+
+```javascript
+// Make a class
+class Menu {
+  choose(value) {
+    this.trigger("select", value);
+  }
+}
+
+// Add the mixin*
+Object.assign(Menu.prototype, eventMixin);
+
+let menu = new Menu();
+
+// call the handler on selection:
+menu.on("select", value => alert(`Value selected: ${value}`));
+
+// triggers the event => shows Value selected: 123
+menu.choose("123");
+```
+
+*Mixin* - is a generic object-oriented programming term: a class that contains methods for other classes.
+
+                     
+----
+
+
+## 7. Error handling
+
+## 7.1. Error handling, "try..catch"
+
+**Error object properties:**
+
+- `name` - Error name, for an undefined variable that's `"ReferenceError"`.
+- `message` - Textual message about *error* details.
+- `stack` - Current call stack: a string with information about the sequence of nested calls that led to the error. Used for debugging purposes.
+
+**"Throw" operator**
+
+The syntax is:
+
+`throw <error object>`
+
+**`fianlly` and `return`**
+
+The `finally` clause works for any exit from `try..catch`. Thet includes an explicit `return`.
+
+**Global catch**
+
+In the browser we can assign a function to special `window.onerror` property.
+It will run in case of an uncaught error.
+
+The syntax:
+
+```javascript
+window.onerror = function(message, url, line, col, error) {
+  // ...
+};
+```
+
+- `message` - Error messages.
+- `url` - URL of the script where error happened.
+- `line`, `col` - Line and column numbers where error happened.
+- `error` - Error object.
+
+The `try..catch` construct allows to handle runtime errors.
+It literally allows to try running the code and catch errors that may occur in it.
+
+The Syntax is:
+
+```javascript
+try {
+  // run this code
+} catch(err) {
+  // if an error happened, then jump here
+  // err is the error object
+} finally {
+  // do in any case after try/catch
+}
+```
+
+## 7.2. Custom errors, extending Error
+
+
+- We can inherit from `Error` and other built-in error classes normally,
+just need to take care of `name` property and don't forget to call super.
+- Most of the time, we should use `instanceof` to check for particular errors.
+It also works with inheritance. But sometimes we have an error object coming from the 3rd-party library and
+there's no easy way to get the class. Then `name` property can be used for such checks.
+- Wrapping exceptions is a widespread technique when a function handles low-level exceptions and makes a higher-level object to report about the errors.
+Low-level exceptions sometimes become properties of that object like `err.cause`.
 
 
 
