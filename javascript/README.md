@@ -1,4 +1,4 @@
-# The Modern Javascript 
+# The Modern Javascript
 
 ## Reference
 - [javascript.info](http://javascript.info/)
@@ -7,7 +7,7 @@
 ----
 
 현재 학습중인 자바스크립트의 중요 내용들을 정히라는 공간이며,
-위 `javascript.info` 사이트를 통하여 정리된 내용의 상세 내용을 확인하실 수 있습니다.
+위 참조 된 `javascript.info` 사이트를 통하여 정리된 내용의 상세 내용을 확인하실 수 있습니다.
 
 ## Table of Contents
 
@@ -28,9 +28,9 @@
 
 - We can use `<script>` tag to add Javascript code to the pages.
 - The `type` and `language` attributes are not required.
-- A script in an external file can be inserted with `<script> src="path/to/script.js"></script>`
+- A script in an external file can be inserted with `<script src="path/to/script.js"></script>`
 
-## 1.2. The moden mode, "use strict"
+## 1.2. The modern mode, "use strict"
 
 - The strict mode is enabled by `"use strict"` at the top of the script. Also there are several language features like "classes" and "modules" that enable strict mode automatically.
 - The strict mode is supported by all modern browsers.
@@ -38,57 +38,57 @@
 ## 1.3. Variables
 
 - `let` - is a modern variable declaration. The code must be in strict mode to use `let` in Chrome (V8).
-- `var` - is an old-school variable declaration.
 - `const` - is like `let`, but the value of the variable can't be changed.
+- `var` - is an old-school variable declaration.
 
 ## 1.4. Data Types
 
 - `number` for numbers of any kind: integer or floating-point.
 - `string` for strings. A string may have one or more characters, there's no separate single-character type.
 
-```javascript
-// 3 types of quotes. (Double quotes, Single quotes, Backtics)
-let str = "Hello";
-let str2 = "Single quotes are ok too";
-let phrase = `can embed ${str}`;
-```
+    ```javascript
+    // 3 types of quotes. (Double quotes, Single quotes, Backtics)
+    let str = "Hello";
+    let str2 = "Single quotes are ok too";
+    let phrase = `can embed ${str}`;
+    ```
 
 - `boolean` for `true`/`false`
 - `null` for unknown values - a standalone type that has a single value `null`.
 - `undefined` for unassigned values - a standalone type that has a single value `undefined`
 - `object` for more complex data structures.
 - `symbol` for unique identifiers.
-- The `typeof` oerator allows us to see which type is stored in the variable.
+- The `typeof` operator allows us to see which type is stored in the variable.
 
-```javascript
-typeof undefined // "undefined"
-typeof 0 // "number"
-typeof true // "boolean"
-typeof "foo" // "string"
-typeof Symbol("id") // "symbol"
-typeof Math // "object"
-typeof null // "object"
-typeof undefined // "object"
-```
+    ```javascript
+    typeof undefined // "undefined"
+    typeof 0 // "number"
+    typeof true // "boolean"
+    typeof "foo" // "string"
+    typeof Symbol("id") // "symbol"
+    typeof Math // "object"
+    typeof null // "object"
+    typeof undefined // "object"
+    ```
 
 ## 1.5. Type Conversions
 
 - `ToString` - Occures when we output something, can be performed with `String(value)`.
 - `ToNumber` - Occures in math operations, can be performed with `Number(value)`.
 
-| Value |  Becomes... |
-|-------|-------------|
-|`undefined`|`NaN`|
-|`null`|`0`|
-|<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
-| `string` | The string is read "as is", whitespaces from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
+    | Value |  Becomes... |
+    |-------|-------------|
+    |`undefined`|`NaN`|
+    |`null`|`0`|
+    |<code>true&nbsp;/&nbsp;false</code> | `1 / 0` |
+    | `string` | The string is read "as is", whitespaces from both sides are ignored. An empty string becomes `0`. An error gives `NaN`. |
 
-- `ToBoolean` - Occures in logical oerations, or can be performed with `Boolean(value)`.
+- `ToBoolean` - Occures in logical operations, or can be performed with `Boolean(value)`.
 
-| Value |  Becomes... |
-|-------|-------------|
-|`0`, `null`, `undefined`, `NaN`, `""` |`false`|
-|any other value| `true` |
+    | Value |  Becomes... |
+    |-------|-------------|
+    |`0`, `null`, `undefined`, `NaN`, `""` |`false`|
+    |any other value| `true` |
 
 - `undefined` is `NaN` as a number, not `0`.
 - `"0"` and space-only string like `" "` are true as a boolean.
@@ -100,7 +100,7 @@ typeof undefined // "object"
 - Strings are compared letter-by-letter in the "dictionary" order.
 - When values different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
 - Values `null` and `undefined` equal `==` each other and equal any other value.
-- Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Making a separate check for `null/undeinfed` is a good idea.
+- Be careful when using comparisons like `>` or `<` with variables that can occasionally be `null/undefined`. Making a separate check for `null/undefined` is a good idea.
 
 ## 1.7. Interaction: alert, prompt, confirm
 
@@ -112,35 +112,41 @@ typeof undefined // "object"
 
 - `Ternary operator '?'`
 
-```javascript
-let accessAllowed = (age > 18) ? true : false;
-```
+    ```javascript
+    let accessAllowed = (age > 18) ? true : false;
+    ```
 
 ## 1.9. Loops: while and for
 
 - Lables for break/continue, A *label* is an identifier with a colon before a loop:
 
-```javascript
-outer: for (let i = 0; i < 3; i++) {
+    ```javascript
+    outer: for (let i = 0; i < 3; i++) {
 
-  for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < 3; j++) {
 
-    let input = prompt(`Value at coords (${i},${j})`, '');
+        let input = prompt(`Value at coords (${i},${j})`, '');
 
-    // if an empty string or canceled, then break out of both loops
-    if (!input) break outer; // (*)
+        // if an empty string or canceled, then break out of both loops
+        if (!input) break outer; // (*)
 
-    // do something with the value...
-  }
-}
-alert('Done!');
-```
+        // do something with the value...
+      }
+    }
+    alert('Done!');
+    ```
 
 ## 1.10. Functions
 
 - Values passed to a function as parameters are copied to its local varialbes
 - A function may access outer variables. But it works only from inside out. The code outside of the function doesn't see its local variables.
 - A funciton can return a value. If it doesn't, then its result is undefined.
+- Functions are values. They can be assigned, copied or declared in any place of the code.
+- If the function is declared as a separate statement in the main code flow, that's called a `"Function Declaration"`.
+- If the function is created as a part of an expression, it's called a `"Function Expression"`.
+- Function Declarations are processed before the code block executed. They are visible everywhere in the block.
+- Function Expressions are created when the execution flow reaches them.
+
 
 ** Function Declaration & Function Expression **
 
@@ -156,12 +162,6 @@ let sum = function(a, b) {
 };
 ```
 
-- Functions are values. They can be assigned, copied or declared in any place of the code.
-- If the function is declared as a separate statement in the main code flow, that's called a `"Function Declaration"`.
-- If the function is created as a part of an expression, it's called a `"Function Expression"`.
-- Function Declarations are processed before the code block executed. They are visible everywhere in the block.
-- Function Expressions are created when the execution flow reaches them.
-
 ## 1.11. Javascript specials
 - [Summary](http://javascript.info/javascript-specials/)
 
@@ -174,19 +174,19 @@ let sum = function(a, b) {
 
 - Debugger command
 
-```javascript
-function hello(name) {
-  let phrase = `Hello, ${name}!`;
-  
-  debugger; // the debugger stop here
-  
-  say(pharase);
-}
+    ```javascript
+    function hello(name) {
+      let phrase = `Hello, ${name}!`;
 
-function say(phrase) {
-  alert(`** ${phrase} **`);
-}
-```
+      debugger; // the debugger stop here
+
+      say(pharase);
+    }
+
+    function say(phrase) {
+      alert(`** ${phrase} **`);
+    }
+    ```
 
 ![debugger command](http://javascript.info/article/debugging-chrome/chrome-sources-debugger-pause.png)
 
@@ -234,28 +234,28 @@ With the spec, we can safely improbe, change, even rewirete the function from sc
 
 - Computed properties
 
-```javascript
-let fruit = prompt("Which fruit to buy?", "apple");
+    ```javascript
+    let fruit = prompt("Which fruit to buy?", "apple");
 
-let bag = {
-  [fruit]: 5, // the name of the property is taken from the variable fruit
-};
+    let bag = {
+      [fruit]: 5, // the name of the property is taken from the variable fruit
+    };
 
-alert( bag.apple ); // 5 if fruit="apple"
-```
+    alert( bag.apple ); // 5 if fruit="apple"
+	```
 
 - Cloning and merging, `Object.assign`
 
-```javascript
-// Object.assign(dest[, src1, src2, src3, ...])
+    ```javascript
+    // Object.assign(dest[, src1, src2, src3, ...])
 
-let usr = {
-  name: "John", 
-  age: 30
-};
+    let usr = {
+      name: "John", 
+      age: 30
+    };
 
-let clone = Object.assign({}, user);
-```
+    let clone = Object.assign({}, user);
+    ```
 
 - To make a "real copy" (a clone) we can use `Object.assign` or `_.cloneDeep(obj)`.
 
@@ -266,11 +266,11 @@ let clone = Object.assign({}, user);
 - Being referenced is not the same as being reachable (from a root): a pack of interlinked objects can become unreachable as a whole.
 
 
-## 3.3. Symbole type
+## 3.3. Symbol type
 
 **Symbol** is a primitive type unique identifieres.
 
-Symbols are always different values, evnt if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key`1 as the name. Multiple call of `Symbol.for` return exactly the same symbol.
+Symbols are always different values, even if they have the same name. If we want same-named symbols to be equal, then we should use the global registry: `Symbol.for(key)` returns (creates if needed) a global symbol with `key` as the name. Multiple call of `Symbol.for` return exactly the same symbol.
 
 ## 3.4. Object methods, "this"
 
@@ -396,8 +396,8 @@ alert(john.name); // John
 
 ## 4.1. Methods of primitives
 
-- Primitives excetp `null` and `undefined` provide many helpful methods.
-- Formally, thoes methods work via temporary objects, but Javaascript engines are well turned to optimize that internally, so they not expensive to call.
+- Primitives except `null` and `undefined` provide many helpful methods.
+- Formally, thoes methods work via temporary objects, but Javascript engines are well turned to optimize that internally, so they not expensive to call.
 
 ## 4.2. Number
 
@@ -406,6 +406,7 @@ alert(john.name); // John
 - `isFinite` and `isNaN`
   - `Infinite` (and `-Infinite`) is a special numeric value that is greater (less) than anything.
   - `NaN` represents an error.
+- `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` or `num.toFixed(precision)`.
  
 **Compare with `Object.is`**
 There is a special built-in method `Object.is` that compares value like `===`, but is more reliable for two edge cases:
@@ -413,8 +414,6 @@ There is a special built-in method `Object.is` that compares value like `===`, b
   2. Values `0` and `-0` are different: `Object.is(0, -0) === false`, it rarely matters, but these values technically are different.
   
   In all other cases, `Object.is(a, b)` is the same as `a === b`.
-  
-- `Math.floor`, `Math.ceil`, `Math.trunc`, `Math.round` or `num.toFixed(precision)`.
 
 ## 4.3. Strings
 
@@ -442,13 +441,13 @@ There are other, less common "special" characters as well. Here's the list:
 | `substr(start, length)` | from `start` get `length` characters | allows negative `start` |
 
 - There are 3 types of quotes. Backtics allow a string to span multiple lines and embed expression.
-- String in Javacsript are encoded using UTF-16
+- String in Javascript are encoded using UTF-16
 - We can use special characters like `\n` and insert letters by their unicode using `\u...`.
 - To get a character, user: `[]`.
 - To get a substring, use: `slice` or `substring` or `substr`.
 - To lowercase/uppercase a string, use: `toLowerCase/toUpperCase`.
 - To look for a string, use: `indexOf`, or `includes/startsWith/endsWith` for simple checks.
-- To compare string according to a language, use: `localCompare`, otherwise they are compared by character codes. 
+- To compare string according to a language, use: `localCompare`, otherwise they are compared by character codes.
 
 
 ## 4.4. Arrays
@@ -517,8 +516,8 @@ To loop over the elements of the array:
 ## 4.6. Iterables
 
 **`Symbol.iterator` (a special built-in symbol just for taht)**
-- When `for..of`starts, it calls that method (or error if not found).
-- The method must return an *iteratot* - an object with the method `next`.
+- When `for..of` starts, it calls that method (or error if not found).
+- The method must return an *iterator* - an object with the method `next`.
 - When `for..of` wants the next value, it calls `next()` on that object.
 - The result of `next()` must have the form `{done: Boolean, value: any}`, where `done == true` means that the iteration is finished, otherwise `value` must be the new value.
 
@@ -601,6 +600,7 @@ map.set('1', 'str1')
   - Iterates in the insertion order.
   - Additional convenient methods, the `size` property.
 
+
 - `new Map()` - creates the map.
 - `map.set(key, value)` - stores the value by the key.
 - `map.get(key)` - return the value by the key, `undefined` if `key` doesn't exist in map.
@@ -614,6 +614,7 @@ map.set('1', 'str1')
   - Unlike an array, does not allow to reorder elements.
   - Keeps the insertion order.
 
+
 - `new Set(iterable)` - creates the set, optionally from an array of values (any iterable will do).
 - `set.add(value)` - adds a value, returns the set itself.
 - `set.delete(value)` - removes the value, returns `true` if `value` existed at the moment of the call, otherwise `false`.
@@ -623,7 +624,7 @@ map.set('1', 'str1')
 
 **WeakMap and WeakSet**
 - `WeakMap` - a variant of `Map` that allows only objects as keys and removes them once become inaccessible by other means.
-  - It does not support operations on the structure as a whole: noe `size`, no `clear()`, no iterations.
+  - It does not support operations on the structure as a whole: no `size`, no `clear()`, no iterations.
 - `WeakSet` - is a variant of `Set` that only stores objects and removes them once they become inaccessible by other means.
   - Also does not support `size/clear()` and iterations.
   
@@ -652,7 +653,7 @@ map.set('1', 'str1')
 - Destructuring assignment allows for instantly mapping an object or array onto many variables.
 - The object syntax:
 
-  `let {prop: varName = default, ...rest} = object'`
+  `let {prop: varName = default, ...rest} = object;`
   
   This means that property `prop` should go into the variable `varName` and, if no such property exists, then `default` value should be used.
 - The array syntax:
@@ -686,19 +687,20 @@ The full syntax of `JSON.stringify` is:
 
 `let json = JSON.stringify(value[, replacer, space])`
 
-**value** A value to encode.
+- **value** - A value to encode.
 
-**replacer** Array of properties to encode or a mapping function `function(key, value)`.
+- **replacer** - Array of properties to encode or a mapping function `function(key, value)`.
 
-**space** Amount of space to use for formatting
+- **space** - Amount of space to use for formatting
 
 The full syntax of `JSON.parse` is:
 
 `let value = JSON.parse(str[, receiver]);`
 
-**str** JSON-string to parse.
+- **str** - JSON-string to parse.
 
-**receiver** Optional function(key, value) that will be called for each `(key, value)` pair and can transform the value.
+- **receiver** Optional function(key, value) that will be called for each `(key, value)` pair and can transform the value.
+
 
 - JSON is a data format that has its own independent standard and libraries for most programming languages.
 - JSON supports plain objects, arrays, strings, numbers, booleans and `null`.
@@ -804,7 +806,7 @@ There are two main differences of `var` :
 ## 5.6. Function object, NFE
 
 - Functions are objects.
-- Fuctions properties:
+- Functions properties:
   - `name` - the function name, Exists not only when given in the function definition, but also for assignments and object properties.
   - `length` - the number of arguments in the function definition. *Rest* parameters are not counted.
 
@@ -838,7 +840,7 @@ Passing parameters explicitly is a much better method architecturally and causes
 
 ## 5.8. Scheduling: setTimeout and setInterval
 
-- `setTimeout` allows to run a function onece after the internal of time. (Canceling with `clearTimeout`)
+- `setTimeout` allows to run a function once after the internal of time. (Canceling with `clearTimeout`)
   `let timerId = setTimeout(func|code, delay[, arg1, arg2, ...])`
   
 - `setInterval` allows to run a function regularly with the interval between the runs.
@@ -958,14 +960,14 @@ There are more reason to `bind` in the modern development, we'll meet them later
 
 
 
-Javascript libraries also probide functions for convenient mass binding, e.g. `_bindAll(obj)` in *lodash*.
+Javascript libraries also provide functions for convenient mass binding, e.g. `_bindAll(obj)` in *lodash*.
 
 
 ## 5.11. Currying and partials
 
 The full syntax of `bind`:
 
-`let bound = func.bind(context, arg1, arg12, ...);`
+`let bound = func.bind(context, arg1, arg2, ...);`
 
 Partial applicaton is useful when we have a very generic function, and want a less universal variant of it for convenience.
 
@@ -1031,7 +1033,7 @@ Arrow functions:
 - Do not have `this`.
 - Do not have `arguments`.
 - Can't be called with `new`.
-- (They also don't have `super`.
+- They also don't have `super`.
 
                      
 ----
@@ -1067,9 +1069,9 @@ It also excluded from `Object.keys`.
 - `Object.defineProperties(obj, {prop1: descriptor1, prop2: descriptor2, ...});`
 - `Object.getOwnPropertyDescriptors(obj)` - It can be used as a "flags-aware" way of cloning an object:
 
-```javascript
-let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
-```
+    ```javascript
+    let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
+    ```
 
 ## 6.2. Property getters and setters
 
@@ -1107,7 +1109,7 @@ For accessor properties, there is no `value` and `writable`, but instead there a
 ```javascript
 let user = {
   get name() {
-    return this._name;
+    return this.name;
   },
 
   set name(value) {
@@ -1129,7 +1131,7 @@ user.name = ""; // Name is too short...
 
 **[[Prototype]**
 
-`[[Prototype]]` is either `null` or references another object.
+`[[Prototype]]` is either `null` or references another `object`.
 That object is called a "prototype".
 
 How to set *prototype*:
@@ -1142,9 +1144,9 @@ All other values(like primitives) ar ignored.
 No matter where the method in found: in an object or its prototype. In a method call, `this` is always the object before the dot.
 
 - In Javascript, all objects have a hidden `[[Prototype]]` property that's either another object or `null`.
-- We can use `obj.__proto__` to access it (there are other ways too, to be coverd soon).
+- We can use `obj.__proto__` to access it (there are other ways too, to be covered soon).
 - The object referenced by `[[Prototype]]` is calld a "prototype".
-- If we wnat to read a property of `obj` or call a method, and it doesn't exist,
+- If we want to read a property of `obj` or call a method, and it doesn't exist,
 then Javascript tries to find it in the prototype..
 Write/delete operations work directly on the object, they don't use the prototype (unless the property is actually a setter).
 - If we call `obj.method()`, and the `method` is taken from the prototype, `this` still references `obj`.
@@ -1254,14 +1256,15 @@ Here's a brief list of methods we discussed in this chappter
 
 - Functional class pattern
 - Factory class pattern
-- Prototype-based classes (o)
-  
+- Prototype-based classes
+
+ 
   Here are the advantages over the functional pattern:
   
   - In the functional pattern, each object has its own copy of every method. We assign a separate copy of `this.sayHi = function() { ... }` and other methods in the constructor.
   - In the prototypal pattern, all methods are in `User.prototype` that is shared between all user objects. An object itself only store the data.
   
-  So the prototypal pattern is more memory-efficient.
+  **So the prototypal pattern is more memory-efficient.**
   
   ...But not only that. Prototypes allow us to setup the inheritance in a really efficient way.
   Built-in Javascript object all use prototypes. Also there's a special syntax construct: "class" that provides nice-looking syntax for them.
@@ -1358,26 +1361,25 @@ Static methods are used when we need a function bound to a class, but not to any
 
 ## 6.9. Class inheritance, super`
 
-- Any expression is allowed after `extends`
-
 Classes provide `"super"` keyword for that.
 
 - `super.method(...)` to call a parent method.
 - `super(...)` to call a parent constructor (inside our constructor only).
 
-- `Symbol.specis` - built-int methods will use this as the constructor
+**Summary**
+
+- Any expression is allowed after `extends`
+- `Symbol.specis` - built-in methods will use this as the constructor
 
 ## 6.10. Class checking: "instanceof"
 
-The `instanceof` operator allows to check whether ans object belongs to a certain class.
+The `instanceof` operator allows to check whether an object belongs to a certain class.
 It also takes inheritance into account.
 
 Such a check may be necessary in many cases, here we'll use it for building a *polymorphic* function,
 the one that treats arguments differently depending on their type.
 
-The syntax is:
-
-`obj instanceof Class`
+The syntax is: `obj instanceof Class`
 
 It returns `true` if `obj` belongs to the `Class` (or a class inheriting from it).
 
@@ -1409,14 +1411,12 @@ And `instanceof` operator really shines when we are working with a class hierarc
   
 ## 6.11. Mixins
 
-```
 As defined in Wikipedia, a `mixin` is a class that contains methods for use by other classes without having to be the parent class of those other classes.
 
 In other words, a *mixin* provides methods that implement a certain behavior, but we do not use it alone, we use it to add the behavior to other classes.
 
 믹스인이란 프로토타입을 바꾸지 않고 한 객체의 프로퍼티를 다른 객체에게 ‘복사’해서 사용하는 방식이다.
 이 믹스인 패턴은 어디에 쓰일 수 있을까? 이 패턴은 기존에 있던 객체의 기능을 그대로 가져가면서 다른 객체에 추가할 때 주로 사용된다. 
-```
 
 **EventMixin**
 
