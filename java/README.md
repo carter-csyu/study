@@ -441,4 +441,626 @@ Car(Car c) {
 
 ## 6.1. 상속(Inheritance)
 
-`To be continue :) `
+> **상속이란**, 기존의 클래스를 재사용하여 새로운 클래스를 작성하는 것이다.
+> 이러한 특징은 코드의 재사용성을 높이고 코드의 중복을 제거하여 프로그램의 생산성과 유지보수에 크게 기여한다.
+
+The Syntax:
+```java
+class Child extends Parent {
+  // ..
+}
+```
+
+> **조상 클래스** - 부모(Parent)클래스, 상위(Super)클래스, 기반(Base)클래스
+> **자손 클래스** - 자식(Child)클래스, 하위(Sub)클래스, 파생된(Derived)클래스
+
+- 생성자와 초기화 블럭은 상속되지 않는다. 멤버만 상속된다.
+- 자손 클래스의 멤버 개수는 조상 클래스보다 항상 같거나 많다.
+- 자손 클래스의 인스턴스를 생성하면 조상 클래스의 멤버와 자손 클래스의 멤버가 합쳐진 하나의 인스턴스로 생성된다.
+
+### 6.1.1. 클래스간의 관계 - 포함관계
+
+> 상속 이외에도 클래스를 재사용하는 또 다른 방법이 있는데, 그 것은 클래스 간에 '포함(Composite)'관계를 맺어 주는 것이다.
+> 클래스 간의 포함관계를 맺어주는 것은 한 클래스의 멤버변수로 다른 클래스를 선언하는 것을 뜻한다.
+
+```java
+class Circle {
+  int x; // 원점의 x좌표
+  int y; // 원점의 y좌표
+  int r; // 반지름(radius)
+}
+
+// 포함관계 적용 시
+
+class Point {
+  int x;
+  int y;
+}
+
+class Circle {
+  Point p = new Point(); // 원점
+  int r;
+}
+```
+
+### 6.1.2. 클래스간의 관계 결정하기
+
+> **상속관계** - '~은 ~이다(is-a)'
+> **포함관계** - '~은 ~을 가지고 있다(has-a)'
+>> 원(Circle)은 점(Point) 이다. - Circle is a Point.
+>> 원(Circle)은 점(Point)을 가지고 있다. - Circle has a Point. ** 포함관계 사용**
+
+### 6.1.3. 단일상속(Single Inheritance)
+
+> 자바(Java)는 다중상속(Multiple Inheritance)를 허용하지 않는다.
+>> 다중상속을 허용하면 여러 클래스로부터 상속받을 수 있기 때문에 복합적인 기능을 가진 클래스를 쉽게 작성할 수 있다는 장점이 있지만, 클래스간의 관계가 매우 복잡해진다는 것과 서로 다른 클래스로부터 상속받은 멤버간의 이름이 같은 경우 구별할 수 있는 방법이 없다는 단점을 가지고 있다.
+
+- 포함관계와 상속관계를 활용하여, 다중상속과 같은 효과를 얻을 수 있다.
+
+### 6.1.4. Object 클래스 - 모든 클래스의 조상
+
+> 자바의 모든 클래스들은 Object클래스의 멤버들을 상속 받기 때문에 Object클래스에 정의된 멤버들을 사용할 수 있다.
+
+## 6.2. 오버라이딩(Overriding)
+
+> 조상 클래스로부터 상속받은 메서드의 내용을 변경하는 것을 오버라이딩이라 한다.
+
+오버라이딩을 성립하기 위한 조건:
+> 자손 클래스에서 오버라이딩하는 메서드는 조상 클레스의 메서드와
+> - 이름이 같아야 한다.
+> - 매개변수가 같아야 한다.
+> - 리턴타입이 같아야 한다.
+>> 선언부가 서로 일치해야 한다. 다만 접근 제어자(access modifier)와 예외(exception)는 제한된 조건 하에서만 다르게 변경할 수 있다.
+>> 1. 접근 제어자는 조상 클래스의 메서드보다 좁은 범위로 변경할 수 없다.
+>>> `public`, `protected`, `(default)`, `private`
+>> 2. 조상 클래스의 메서드보다 많은 수의 예외를 선언할 수 없다.
+>> 3. 인스턴스메서드를 static메서드로 또는 그 반대로 변경할 수 없다.
+
+### 6.2.1. 오버로딩(Overloading) vs 오버라이딩(Overriding)
+
+> **오버로딩(Overloading)** - 기존에 없는 새로운 메서드를 정의하는 것(now)
+> **오버라이딩(Overriding)** - 상속받은 메서드의 내용을 변경하는 것(change, modify)
+
+```java
+class Parent {
+  void parentMethod() {}
+}
+
+class Child extends Parent {
+  void parentMethod() {} // 오버라이딩(Overriding)
+  void parentMethod(int i) {} // 오버로딩(Overloading)
+  
+  void childMethod() {}
+  void childMethod(int i) {} // 오버로딩(Overloading)
+  void childMethod() {} // Error. Already defined in Child.
+}
+```
+
+### 6.2.2. `super`
+
+> `super`는 자손클래스에서 조상 클래스로부터 상속받은 멤버를 참조하는데 사용되는 참조변수이다.
+> 멤버변수와 지역변수의 이름이 같을 때 `this`를 사용해서 구별했듯이 상속받은 멤버와 자신의 클레스에 정의된 멤버의 이름이 같을 때는 `super`를 사용해서 구별할 수 있다.
+
+### 6.2.3. super() - 조상클래스의 생성자
+
+> `this()`와 마찬가지로 `super()` 역시 생성자이다. `this()`는 같은 클래스의 다른 생성자를 호출하는 데 사용되지만, `super()`는 조상 클래스의 생성자를 호출하는데 사용한다.
+
+> Object클래스를 제외한 모든 클래스의 생성자 첫 줄에는 생성자(같은 클래스의 다른 생성자 또는 조상의 생성자)를 호출해야 한다.
+> 그렇지 않으면 컴파일러가 자동적으로 `super();`를 생성자의 첫 줄에 삽입한다.
+
+```java
+class Point {
+  int x;
+  int y;
+  
+  Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+class Point3D extends Point {
+  int z;
+  
+  Point(int x, int y, int z) {
+    // super(); // Error.
+    
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+}
+```
+
+## 6.3. 패키지(package)와 import
+
+### 6.3.1. 패키지(package)
+
+> 패키지란, 클래스의 묶음이다. 패키지에는 클래스 또는 인터페이스를 포함 시킬 수 있으며, 서로 관련된 클래스들끼리 그룹 단위로 묶어 놓음으로써 클래스를 효율적으로 관리할 수 있다.
+
+- 하나의 소스파일에는 첫 번째 문장으로 단 한 번의 패키지 선언만을 허용한다.
+- 모든 클래스는 반드시 하나의 패키지에 속해야한다.
+- 패키지는 점(`.`)을 구분자로 하여 계층구조를 구성할 수 있다.
+- 패키지는 물리적으로 클래스 파일(.class)을 포함하는 하나의 디렉토리이다.
+
+The syntax of `pakage`:
+```java
+pacakge 패키지명;
+```
+
+**패키지명**은 대소문자를 모두 허용하지만, 클래스명과 쉽게 구분하기 위해서 **소문자**로 하는 것을 원칙으로 한다.
+
+#### 이름없는 패키지(unnamed package)
+> 소스파일에 자신이 속할 패키지를 지정하지 않은 클래스는 자동적으로 '이름없는 패키지'에 속하게 된다.
+
+### 6.3.2. `import`문
+
+> 소스코드를 작성할 때 다른 패키지의 클래스를 사용하려면 패키지명이 포함된 클래스 이름을 사용해야 한다. 하지만, `import`문으로 사용하고자 하는 클래스의 패키지를 미리 명시해주면 소스코드에 사용되는 클래스이름에서 패키지명은 생략할 수 있다.
+
+일반적인 소스파일(*.java)의 구성:
+> 1. package문
+> 2. import문
+> 3. 클래스 선언
+
+The syntax of `package`:
+```java
+import 패키지명.클래스명;
+// 또는
+import 패키지명.*; // 지정된 패키지에 속하는 모든 클래스를 패키지명 없이 사용할 수 있다.
+```
+
+- `import`문에서 클래스의 이름 대신 '*'을 사용하는 것이 하위 패키지의 클래스까지 포함하는 것은 이다.
+
+```java
+import java.util.*;
+import java.text.*;
+
+import java.*; // 위의 두 문장 대신에 다음과 같이 사용할 수 없다.
+```
+
+### 6.4. 제어자(Modifier)
+
+> 제어자(Modifier)는 클래스, 변수 또는 메서드의 선언부와 함께 사용되어 부가적인 의미를 부여한다.
+> 
+> **접근 제어자** - `public`, `protected`, `default`, `private`
+> ** 그 외** - `static`, `final`, `abstract`, `native`, `transient`, `syncronized`, `volatile`, `strictfp`
+
+### 6.4.1. `static` - 클래스의, 공통적인
+
+> `static`이 사용될 수 있는 곳 - 멤버변수, 메서드, 초기화블럭 등
+
+| 대상 | 의미 |
+| :--: | ---- |
+| 멤버변수 | - 모든 인스턴스에 공통적으로 사용되는 클래스변수가 된다. <br> - 클래스변수는 인스턴스를 생성하지 않고도 사용 가능하다. <br> - 클래스가 메모리에 로드될 때 생성된다. |
+|메서드 | - 인스턴스르 생성하지 않고도 호출이 h가능한 static 메서드가 된다. <br> - static메서드 내에서는 인스턴스멤버들을 직접 사용할 수 없다. |
+
+
+### 6.4.2. `final` - 마지막의, 변경될 수 없는
+
+> `final`이 사용될 수 있는 곳 - 클래스, 메서드, 멤버변수, 지역변수 등
+> 인스턴스 변수의 경우 생성자에서 초기화를 할 수 있다.
+
+
+| 대상 | 의미 |
+| :--: | ---- |
+| 클래스 | 변경될 수 없는 클래스, 확장될 수 없는 클래스가 된다.<br> 그래서 `final`로 지정된 클래스는 다른 클래스의 조상이 될 수 없다. |
+| 메서드 | 변경될 수 없는 메서드, `final`로 지정된 메서드는 오버라이딩을 통해 재정의 될 수 없다.
+| 멤버변수<br> 지역변수 | 변수 앞에 `final`이 붙으면, 값을 변경할 수 없는 상수가 된다. |
+
+### 6.4.3. `abstract` - 추상의, 미완성의
+
+> `abstract`가 사용될 수 있는 곳 - 클래스, 메서드 등
+
+| 대상 | 의미 |
+| :--: | ---- |
+| 클래스 | 클래스 내에 추상메서드가 선언되어 있음을 의미한다.
+| 메서드 | 선언부만 작성하고 구현부는 작성하지 않은 추상메서드임을 알린다.
+
+The syntax of `abstract`:
+```java
+abstract class AbstractTest { // 추상클래스 (추상메서드를 포함하는 클래스)
+  abstract void move(); // 추상메서드 (구현부가 없는 메서드)
+}
+```
+
+### 6.4.4. 접근 제어자(Access Modifier)
+
+> 접근 제어가자 가용될 수 있는 곳 - 클래스, 멤버변수, 메서드, 생성자 등
+>
+>  `private` - **같은 클래스** 내에서만 접근이 가능하다.
+>  `protected` - 같은 패키지 내에서, 그리고 다른 패키지의 자손클레스에서 접근이 가능하다.
+>  `default` - **같은 패키지** 내에서만 접근이 가능하다.
+>  `public` - 접근 제한이 전혀 없다.
+
+| 제어자 | 같은 클래스 | 같은 패키지 | 자손클래스 | 전체 |
+| :--: | :--: | :--: | :--: | :--: |
+| `public` | O | O | O | O |
+| `protected` | O | O | O | |
+| `default` | O | O | | |
+| `private` | O | | | ||
+
+접근 범위:
+> `public` > `protected` > `default` > `private`
+
+| 대상 | 사용가능한 접근 제어자 |
+| :--: | ---- |
+| 클래스 | `public`, `(defalut)` |
+| 메서드<br>멤버변수 | `public`, `protected`, `(default)`, `private` |
+| 지역번수 | 없음 |
+
+#### 접근 제어자(Access Modifier)를 사용하는 이유
+- 외부로부터 데이터를 보호하기 위해서
+- 외부에는 불필요한, 내부적으로만 사용되는, 부분을 감추기 위해서
+
+### 6.4.5. 생성자의 접근 제어자
+
+> 생성자에 접근 제어자를 사용함으로써 인스턴스의 생성을 제한할 수 있다.
+> 생성자의 접근제어자를 `private`으로 지정하면, 외부에서 생성자에 접근할 수 없으므로 인스턴스를 생성할 수 없게 된다. 그래도 클래스 내부에서는 인스턴스의 생성이 가능하다.
+> 대신 인스턴스를 생성해서 반환해주는 `public`메서드를 제공함으로써 외부에서 이 클래스의 인스턴스를 사용하도록 할 수 있다. 이 메서드는 `public`인 동시에 `static`이어야 한다.
+
+```java
+class Singleton {
+  // ...
+  
+  /* getInstance()에서 사용될 수 있도록 인스턴스가 미리 생성되어야 하므로
+     `static`이 되어야 한다. */
+  private static Singleton s = new Singleton();
+  
+  // 인스턴스를 생성하지 않고도 호출할 수 있어야 하므로 `static`이어야 한다.
+  private Singleton() {
+    // ...
+  }
+  
+  public static Singleton getInstance() {
+    return s;
+  }
+  
+  // ...
+}
+```
+
+- 이처럼 생성자를 통해 직접 인스턴스를 생성하지 못하게 하고 `public`메서드를 통해 인스턴스에 접근하게 함으로써 사용할 수 있는 인스턴스의 개수를 제한할 수 있다.
+- 생성자가 `private`인 클래스는 다른 클래스의 조상이 될 수 없기 때문에 클래스 앞에 `final`을 추가하여 상속할 수 없는 클래스라는 것을 알리는 것이 좋다.
+
+### 6.4.6. 제어자(modifier)의 조합
+
+| 대상 | 사용가능한 제어자 |
+| :--: | ---- |
+| 클래스 | `public`, `(default)`, `final`, `abstract` |
+| 메서드 | 모든 접근제어자, `final`, `abstract`, `static` |
+| 멤버변수 | 모든 접근제어자, `final`, `static` |
+| 지역변수 | `final` |
+
+## 6.5. 다형성(Polymorphism)
+
+> 객체지향개념에서의 다형성이란 '여러 가지 형태를 가질 수 있는 능력'을 의미하며, 자바에서는 한 타입의 참조변수로 여러 타입의 객체를 참조할 수 있도록 함으로써 다형성을 프로그램적으로 구현하였음.
+>
+> 조상클래스 타입의 참조변수로 자손클래스의 인스턴스를 참조할 수 있도록 함.
+
+```java
+class Tv {
+  boolean power;
+  int channel;
+  
+  void power() { ... }
+  void channelUp() { ... }
+  void channelDown() { ... }
+}
+
+class CaptionTv extends Tv {
+  String text;
+  
+  void caption() { ... }
+}
+
+Tv t = new CaptionTv();
+CaptionTv c = new CaptionTv();
+
+CaptionTv ct = new Tv(); // 컴파일 에러 발생
+/* 실제 인스턴스인 Tv의 멤버 개수보다 참조변수 c가 사용할 수 있는 멤버 개수가 더 많기 때문 */
+```
+
+> 조상타입의 참조변수로 자손타입의 인스턴스를 참조할 수 있다.
+> 반대로 자손타입의 참조변수로 조상타입의 인스턴스를 참조할 수는 없다.
+
+### 6.5.1. 참조변수의 형변환
+
+> 자손타입 → 조상타입 (Up-casting) : 형변환 생략가능
+> 자손타입 ← 조상타입 (Down-casting) : 형변환 생략불가
+
+> 캐스트연산자를 사용하면 서로 상속관계에 있는 클래스 타입의 참조변수간의 형변환은 양방향으로 자유롭게 수행될 수 있다.
+> 그러나 참조변수가 참조하고 있는 인스턴스의 자손타입으로 형변환을 하는 것은 허용되지 않는다.
+
+### 6.5.2. `instanceof` 연산자
+
+> `instanceof` 연산자는 인스턴스의 실제 타입을 확인할 때 사용한다.
+
+The syntax of `instanceof`:
+` 참조변수 instanceof 타입(클래스명) `
+
+> 어떤 타입에 대한 `instanceof`연산의 결과가 `true`라는 것은 검사한 타입으로 형변환이 가능하다는 것을 뜻한다.
+
+### 6.5.3. 참조변수와 인스턴스의 연결
+
+> - 멤버변수가 조상 클래스와 자손 클래스에 중복으로 정의된 경우, 조상타입의 참조변수를 사용했을 때는 조상 클래스에 선언된 멤버변수가 사용되고, 자손타입의 참조변수를 사용했을 때는 자손 클래스에 선언된 멤버변수가 사용된다.
+> - 메스드의 경우 참조변수의 타입에 관계없이 항상 실제 인스턴스의 타입인 클래스에 정의된 메서드를 호출한다.
+
+### 6.5.4. 매개변수의 다형성
+
+> 메서드의 메개변수에 다형성을 적용하면 하나의 메서드로 간단히 처리가 가능하다.
+
+```java
+class Product {
+  int money;
+  int bonusPoint;
+}
+
+class Tv extends Product {}
+class Radio extends Product {}
+
+void buy(Product p) {
+  money = money - p.price;
+  bonusPoint = bonusPoint + p.bonusPoint;
+}
+```
+
+### 6.5.5. 여러 종류의 객체를 하나의 배열로 다루기
+
+```java
+Product p1 = new Tv();
+Product p2 = new Radio();
+
+Product p[] = new Product[2];
+p[1] = new Tv();
+p[2] = new Radio();
+```
+
+#### 배열의 크기를 지정할 수 없는 경우 - `Vector`클래스
+
+```java
+public class Vector extends AbstractList implements List, Clonnable, java.io.Serializable {
+  protected Object elementData[];
+  // ...
+}
+```
+
+| 메서드/생성자 | 설명 |
+| ---- | ---- |
+| `Vector()` | 10개의 객체를 저장할 수 있는 Vector인스턴스를 생성한다.<br>10개 이상의 인스턴스가 저장되면, 자동적으로 크기가 증가된다.|
+| `boolean add(Object o)` | `Vector`에 객체를 추가한다. |
+| `boolean remove(Object o)` | `Vector`에 저장되어 있는 객체를 제거한다. |
+| `boolean isEmpty()` | `Vector`가 비어있는지 검사한다. |
+| `Object get(int index)` | 지정된 위치(`index`)의 객체를 반환한다. (형변환 필요) |
+| `int size()` | `Vector`에 저장된 객체의 개수를 반환한다. |
+
+
+## 6.6. 추상클래스(abstract class)
+> 추상클래스는 미완성 설계도에 비유할 수 있으며, 상속을 통해서 자손클래스에 의해서만 완성될 수 있다. 
+> 추상클래스 내의 메서드는 선언부만 작성하고 구현부는 작성하지 않은 채로 남겨 두는데 이를 **추상메서드**라 한다.
+
+The syntax of `abstract class`:
+```java
+abstract class 클래스이름 {
+  // ...
+  
+  abstract 리턴아입 메서드이름(); // 선언부만 존재(구현부 없음)
+}
+```
+
+> **추상화** - 클래스간의 공통점을 찾아내서 공통의 조상을 만드는 작업
+> **구체화** - 상속을 통해 클래스를 구현, 확장하는 작업
+
+## 6.7. 인터페이스(interface)
+
+> 인터페이스는 일종의 추상클래스이다. 인터페이스는 추상클래스처럼 추상메서드를 갖지만 추상클래스보다 추상화 정도가 높아서 추상클래스와 달리 몸통을 갖춘 일반 메서드 또는 멤버변수를 구성원으로 가질 수 없다.
+>> 오직 추상메서드와 상수만을 멤버로 가질 수 있으며, 그 외의 어떠허한 요소도 허용하지 않는다.
+
+The syntax of `interface`:
+```java
+interface 인터페이스명 {
+  public static final 타입 상수이름 = 값;
+  public abstract 리턴타입 메서드명(매개변수목록);
+}
+```
+
+> 모든 멤버변수는 `public static final`이어야 하며, 이를 생략할 수 있다.
+> 모든 메서드는 `public abstract`이어야 하며, 이를 생략할 수 있다.
+>> 생략된 제어자는 컴파일 시에 컴파일러가 자동적으로 추가해준다.
+
+### 6.7.1. 인터페이스의 상속
+
+> 인터페이스는 인터페이스로부터만 상속받을 수 있으며, 클래스와는 달리 다중상속,
+> 즉 여러 개의 인터페이스로부터 상속을 받는 것이 가능하다.
+
+```java
+interface Movable {
+  public static void move(int x, int y);
+}
+
+interface Attackable {
+  public static void attack(Unit u);
+}
+
+interface Fightable extends Moveable, Attackable { }
+```
+
+### 6.7.2. 인터페이스의 구현
+
+> 인터페이스도 추상클래스처럼 그 자체로는 인스턴스를 생성할 수 없으며, 추사을래스가 상속을 통해 추상메서드를 완성하는 것처럼, 인터페이스도 자신에 정의된 추상메서드의 몸통(구현부)을 만들어주는 클래스를 작성해야한다.
+> 인터페이스를 구현하기 위해서는 `extends`가 아닌 `implements` 키워드를 사용한다.
+
+The syntax:
+```java
+class 클래스명 implements 인터페이스명 {
+  // 인터페이스에 정의된 모든 추상메서드를 구현해야한다.
+}
+
+class Fighter extends Unit implements Fightable {
+  public void move(int x, int y) { ... }
+  public void attack(Unit u) { ... }
+}
+```
+
+### 6.7.3. 인터페이스를 이용한 다중상속
+
+> '자바도 인터페이스를 이용하면 다중상소이 가능하다.'라고 하는 것일 뿐 자바에서 인터페이스로 다중상속을 구현하는 경우는 거의 없다.
+
+> 만일 두 개의 클래스로부터 상속을 받아야 할 상황이라면, 두 조상클래스 중에서 비중이 높은 쪽을 선택하고, 다른 한쪽은 클래스 내부에 멤버로 포함시키는 방식으로 처리하거나, 어느 한쪽의 필요한 부분을 뽑아서 인터페이스로 만든 다음에 구현하도록 한다.
+
+```java
+public class Tv { }
+public class VCR {
+  protected int counter;
+  
+  public void play() { /* 내용 생략 */ }
+  public int getCounter() { return counter; }
+  public void setCounter(int c) { counter = c;}
+  // ...
+}
+
+public interface IVCR {
+  public void play();
+  public int getCounter();
+  public void setCounter(int c);
+}
+
+public class TVCR extends Tv implements IVCR {
+  VCR vcr = new VCR();
+  
+  public void play() {
+    vcr.play(); // 코드를 작성하는 대신 VCR인스턴스의 메서드를 호출한다.
+  }
+  
+  public int getCounter() {
+    return vcr.getCounter();
+  }
+  
+  public void setCounter(int c) {
+    vcr.setCounter(c);
+  }
+}
+```
+
+### 6.7.4. 인터페이스를 이용한 다형성
+
+> 인터페이스 또한 이를 구현한 클래스의 조상이라 할 수 있으므로 해당 인터페이스 타입의 참조변수로 이를 구현한 클래스의 인스턴스를 참조할 수 있으며, 인터ㅔ이스 타입으로의 형변환도 가능하다.
+
+```java
+Fightable f = (Fightable)new Fighter();
+
+Fightable f2 = new Fighter(); // 생략 가능
+```
+
+### 7.7.7. 인터페이스의 장점
+
+- 개발시간을 단축시킬 수 있다.
+- 표준화가 가능하다. (정형화된 프로그램의 개발 가능)
+- 서로 관계없는 클래스들에게 관계를 맺어줄 수 있다.
+- 독립적인 프로그래밍이 가능하다.
+> 인터페이스를 이용하면 클래스의 선언과 구현을 분리시킬 수 있기 때문에 실제구현에 독립적인 프로그램을 작성하는 것이 가능하다. 클래스와 클래스간의 직접적인 관계를 인터페이스를 이용해서 간적적인 관계로 변경하면, 한 클래스의 변경이 관련된 다른 클래스에 영향을 미치지 않는 독립적인 프로그래밍이 가능하다.
+
+### 7.7.8. 인터페이스의 이해
+
+> - 클래스를 사용하는 쪽(User)과 클래스를 제공하는 쪽(Provider)이 있다.
+> - 메서드를 사용(호출)하는 쪽(User)에서는 사용하려는 메서드(Provider)의 선언부만 알면 된다.(내용은 몰라도 된다.)
+
+
+## 8. 예외처리
+## 8.1. 예외처리(Exception handling)
+> 정의 - 프로그램 실행 시 발생할 수 있는 예외의 발생에 대비한 코드를 작성하는 것
+> 목적 - 프로그램의 비정상 종료를 막고, 정상적인 실행상태를 유지하는 것
+
+에러의 종류 - 발생시점에 따라 구분된다.
+> **컴파일 에러(Compile-time error)** - 컴파일시 발생하는 에러
+> **런타임 에러(Runtime error)** - 프로그램 실행도중 발생하는 에러(`error`, `exception`)
+>> **에러(error)** - 프로그램 코드에 의해서 수습될 수 없는 심각한 오류
+>> **예외(exception)** - 프로그램 코드에 의해서 수습될 수 있는 다소 미약한 오류
+
+The syntax of `exception handling`:
+```java
+try {
+  // 예외가 발생할 가능성이 있는 문장들을 넣는다.
+} catch (Exception1 e1) {
+  // Exception1이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.
+} catch (Exception2 e2) {
+  // Exception2이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.
+...
+} catch (ExceptionN eN) {
+  // ExceptionN이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.
+} finally {
+  // 예외의 발생여부에 관계없이 항상 수행되어야하는 문장들을 넣는다.
+  // finally블록은 try-catch문의 맨 마지막에 위치해야한다.
+}
+```
+
+### 8.1.1. 예외 발생시키기
+
+> 1. 먼저, 연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만든 다음
+>> `Exception e = new Exception("예외 발생");`
+> 2. 키워드 `throw`를 이용해서 예외를 발생시킨다.
+>> `throw e;`
+
+### 8.1.2. 메서드에 예외 선언하기 - `throws`
+
+The syntax:
+```java
+void method() throws Exception1, Exception2, ...ExceptionN {
+  // ...
+}
+```
+
+> 자바에서는 메서드를 작성할 때 메서드 내에서 발생할 가능성이 있는 예외를 메서드의 선언부에 명시하여 이 메스드를 사용하는 쪽에서는 이에 대한 처리를 하도록 강요하기 때문에, 프로그래머들의 짐을 덜어 주는 것은 물론이고 보다 견고한 프로그램 코드를 작성할 수 있도록 도와준다.
+
+> 예외가 발생한 메서드에서 예외를 처리하지 않고 호출한 메서드로 넘겨주면, 호출한 메서드에서는 호출한 라인에서 예외가 발생한 것으로 건주되어 이에 대한 처리를 하게 된다.
+
+### 8.1.3. 예외 되던지기(Exception re-throwing)
+
+> 한 메서드에서 발생할 수 있는 예외가 여럿인 경우, 몇 개는 `try-catch`문을 통해서 메서드 내에서 자체적으로 처리하고, 그 나머지는 선언부에 지정하여 호출한 메서드에서 처리하도록 함으로써, 양쪽에서 나누어서 처리할 수 있다.
+> 그리고 심지어는 단 하나의 예외에 대해서도 예외가 발생한 메서드와 호출한 메서드, 양쪽에서 처리하도록 할 수 있다.
+> 
+> 예외를 처리한 후에 인위적으로 다시 발생시키는 방법을 통해서 가능한데, 이것을 '예외 되던지기(exception re-throwing)'이라고 한다.
+
+```java
+class ExceptionExample {
+  public static void main(String args[]) {
+    try {
+      method1();
+    }  catch (Exception e) {
+      // method1()에서 발생한 예외 처리
+    }
+  }
+  
+  static void method1() throws Exception {
+    try {
+      throw new Exception();
+    } catch (Exception e) {
+      // 메소드 내에서 자체 처리 후 예외를 호출한 메서드로 되던진다.
+      
+      throw e;
+    }
+  }
+}
+```
+
+### 8.1.4. 사용자정의 예외 (User-defined Exception)
+
+> 기존에 정의된 예외 클래스 외에 필요에 따라 프로그래머가 새로운 예외 클래스를 정의하여 사용할 수 있다.
+
+```java
+class MyException extends Exception {
+  private final int ERR_CODE;
+  
+  MyException(String message, int errCode) {
+    super(message); // 조상인 Exception클래스의 생성자를 호출한다.
+    ERR_CODE = errCode
+  }
+  
+  MyException(String message) {
+    this(message, 100);
+  }
+  
+  public int getErrCode() {
+    return ERR_CODE;
+  }
+}
+```
