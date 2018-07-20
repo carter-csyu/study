@@ -2016,14 +2016,96 @@ class MyData implements java.io.Serializable {
 
 ## 13. 네트워킹(Networking)
 
+## 13.1. 네트워킹(Networking)
 
+### 13.1.1. 클라이언트/서버(client/server)
 
+> 서버(server) - 서비스를 제공하는 컴퓨터(service provider)
+> 클라이언트(client) - 서비스를 사용하는 컴퓨터(service user)
 
+####서버기반 모델과 P2P모델간의 비교
+| 서버기반 모델(server-based model) | P2P 모델(peer-to-peer model) |
+| ---- | ---- |
+| - 안정적인 서비스의 제공이 가능하다.<br>- 공유 데이터의 관리와 보안이 용이하다.<br>- 서버구축비용과 관리비용이 든다. | - 서버구축 및 운용비용을 절감할 수 있다.<br>- 자원의 활용을 극대화할 수 있다.<br>- 자원의 관리가 어렵다.<br>- 보안이 취약하다.
 
+### 13.1.3. InetAddress
+### 13.1.4. URL(Uniform Resource Location)
 
+> http://www.devchun.com:80/study/java.html?user=csyu#index1
+>> **프로토콜** - 자원에 접근하기 위해 서버와 통신하는데 사용되는 통신규약(http)
+>> **호스트명** - 자원을 제공하는 서버의 이름(www.devchun.com)
+>> **포트번호** - 통신에 사용되는 서버의 포트번호(80)
+>> **경로명** - 접근하려는 자원이 저장된 서버상의 위치(/study/)
+>> **파일명** - 접근하려는 자원의 이름(java.html)
+>> **쿼리(query)** - URL에서 '?'이후의 부분(user=csyu)
+>> **참조(anchor)** - URL에서 '#'이후의 부분(index1)
 
+### 13.1.5. URLConnection
 
+> 어플리케이션과 URL간의 통신연결을 나타내는 클래스의 최상위 클래스로 추상클래스이다.
 
+####URL로부터 지정된 위치로 파일 다운로드 처리
+
+```java
+import java.net.*;
+import java.io.*;
+
+public class FileDownloadFromUrl {
+  public static void main(String args[]) {
+    URL url = null;
+    InputStream in = null;
+    FileOutputStream out = nuill;
+    String address = "http://www.devchun.com/downloads/file1.zip";
+    
+    int ch = 0;
+    
+    try {
+      url = new URL(address);
+      in = url.openStream();
+      out = new FileOutputStream("file1.zip"); // 경로를 지정해도 됨
+      
+      while((ch = in.read()) != -1) {
+        out.write(ch);
+      }
+      in.close();
+      out.close();
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+## 13.2. 소켓프로그래밍
+
+> 소켓프로그래밍이란 소켓을 이용한 통신 프로그래밍을 뜻하는데, 소켓(socket)이란 프로세스간의 통신에 사용되는 양쪽 끝단(endpoint)을 의미한다.
+
+### 13.2.1. TCP와 UDP
+
+####TCP와 UDP의 비교
+| 항목 | TCP | UDP |
+| :--: | ---- | ---- |
+| 연결방식 | 연결기반(connection-oriented)<br>- 연결 후 통신(전화기)<br>- 1:1 통신방식 | 비연결기반(connectionless-oriented)<br>- 연결 없이 통신(소포)<br>- 1:1, 1:n, n:n 통신방식 |
+| 특징 | 데이터의 경계를 구분안함 (byte-stream)<br>신뢰성 있는 데이터 전송<br>- 데이터의 전송순서가 보장됨<br>- 데이터의 수신여부를 확인함<br>(손실 시 재전송)<br>- 패킷을 관리할 필요가 없음<br>UDP보다 전송속도가 느림 | 데이터의 경계를 구분함 (datagram)<br>신뢰성 없는 데이터 전송<br>- 데이터의 전송순서가 바뀔 수 있음<br>- 데이터의 수신여부를 확인안함<br>(손실여부 확인 불가)<br> - 패킷을 관리해주어야 함<br>TCP보다 전송속도가 빠름 |
+| 관련 클래스 | `Socket`, `ServerSocket` | `DatagramSocket`, `DatagramPacket`,<br> `MulticastSocket` |
+
+### 13.2.2. TCP소켓 프로그래밍
+
+####서버-클라이언트 간 통신과정
+> 1. 서버프로그램에서는 서버소켓을 사용하여 서버 컴퓨터의 특정 포트에서 클라이언트의 연결요청을 처리할 준비를 한다.
+> 2. 클라이언트 프로그램은 접속할 서버의 IP주소와 포트 정보를 가지고 소켓을 생성해서 서버에 연결을 요청한다.
+> 3. 서버소켓은 클라이언트의 연결요청을 받으면 서버에 새로운 소켓을 생성해서 클라이언트의 소켓과 연결되도록 한다.
+> 4. 이제 클라이언트의 소켓과 새로 생성된 서버의 소켓은 서버소켓과 관계없이 일대일 통신을 한다.
+
+**소켓**은 두 개의 스트림, 입력스트림과 출력스트림을 가지고 있으며, 이 스트림들은 연결된 상대편 소켓의 스트림들과 교차연결된다.
+
+> `Socket` - 프로세스간의 통신을 담당하며, `InputStream`과 `OutputStream`을 가지고 있다. 이 두 스트림을 통해 프로세스간의 통신(입출력)이 이루어진다.
+> `ServerSocket` - 포트와 연결(bind)되어 외부의 연결요청을 기다리다 연결요청이 들어오면, `Socket`을 생성해서 소켓과 소켓간의 통신이 이루어지도록 한다. 한 포트에 하나의 `ServerSocket`만 연결할 수 있다. (프로토콜이 다르면 같은 포트 공유 가능)
+
+### 13.2.3. UDP소켓 프로그래밍
+
+> UDP소켓 프로그래밍에서는 `DatagrmSocket`과 `DatagramPacket`을 사용한다.
+> `DatagramPacket`은 헤더와 데이터로 구성되어 있으며, 헤더에는 `DatagramPacket`을 수신할 호스트의 정보(호스트의 주소와 포트)가 저장되어 있다.
 
 
 
