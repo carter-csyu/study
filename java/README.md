@@ -1,5 +1,8 @@
 # JAVA
 
+## 참고(References)
+> [java의 정석 - 2nd Edition](https://books.google.co.kr/books/about/Java%EC%9D%98_%EC%A0%95%EC%84%9D.html?id=YWPtQwAACAAJ&source=kp_cover&redir_esc=y)
+
 ## 목차(Table of Contents)
 
 1. 변수(Variable)
@@ -951,7 +954,7 @@ Fightable f = (Fightable)new Fighter();
 Fightable f2 = new Fighter(); // 생략 가능
 ```
 
-### 7.7.7. 인터페이스의 장점
+### 6.7.5. 인터페이스의 장점
 
 - 개발시간을 단축시킬 수 있다.
 - 표준화가 가능하다. (정형화된 프로그램의 개발 가능)
@@ -959,14 +962,14 @@ Fightable f2 = new Fighter(); // 생략 가능
 - 독립적인 프로그래밍이 가능하다.
 > 인터페이스를 이용하면 클래스의 선언과 구현을 분리시킬 수 있기 때문에 실제구현에 독립적인 프로그램을 작성하는 것이 가능하다. 클래스와 클래스간의 직접적인 관계를 인터페이스를 이용해서 간적적인 관계로 변경하면, 한 클래스의 변경이 관련된 다른 클래스에 영향을 미치지 않는 독립적인 프로그래밍이 가능하다.
 
-### 7.7.8. 인터페이스의 이해
+### 6.7.6. 인터페이스의 이해
 
 > - 클래스를 사용하는 쪽(User)과 클래스를 제공하는 쪽(Provider)이 있다.
 > - 메서드를 사용(호출)하는 쪽(User)에서는 사용하려는 메서드(Provider)의 선언부만 알면 된다.(내용은 몰라도 된다.)
 
 
-## 8. 예외처리
-## 8.1. 예외처리(Exception handling)
+## 7. 예외처리
+## 7.1. 예외처리(Exception handling)
 > 정의 - 프로그램 실행 시 발생할 수 있는 예외의 발생에 대비한 코드를 작성하는 것
 > 목적 - 프로그램의 비정상 종료를 막고, 정상적인 실행상태를 유지하는 것
 
@@ -993,14 +996,14 @@ try {
 }
 ```
 
-### 8.1.1. 예외 발생시키기
+### 7.1.1. 예외 발생시키기
 
 > 1. 먼저, 연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만든 다음
 >> `Exception e = new Exception("예외 발생");`
 > 2. 키워드 `throw`를 이용해서 예외를 발생시킨다.
 >> `throw e;`
 
-### 8.1.2. 메서드에 예외 선언하기 - `throws`
+### 7.1.2. 메서드에 예외 선언하기 - `throws`
 
 The syntax:
 ```java
@@ -1013,7 +1016,7 @@ void method() throws Exception1, Exception2, ...ExceptionN {
 
 > 예외가 발생한 메서드에서 예외를 처리하지 않고 호출한 메서드로 넘겨주면, 호출한 메서드에서는 호출한 라인에서 예외가 발생한 것으로 건주되어 이에 대한 처리를 하게 된다.
 
-### 8.1.3. 예외 되던지기(Exception re-throwing)
+### 7.1.3. 예외 되던지기(Exception re-throwing)
 
 > 한 메서드에서 발생할 수 있는 예외가 여럿인 경우, 몇 개는 `try-catch`문을 통해서 메서드 내에서 자체적으로 처리하고, 그 나머지는 선언부에 지정하여 호출한 메서드에서 처리하도록 함으로써, 양쪽에서 나누어서 처리할 수 있다.
 > 그리고 심지어는 단 하나의 예외에 대해서도 예외가 발생한 메서드와 호출한 메서드, 양쪽에서 처리하도록 할 수 있다.
@@ -1042,7 +1045,7 @@ class ExceptionExample {
 }
 ```
 
-### 8.1.4. 사용자정의 예외 (User-defined Exception)
+### 7.1.4. 사용자정의 예외 (User-defined Exception)
 
 > 기존에 정의된 예외 클래스 외에 필요에 따라 프로그래머가 새로운 예외 클래스를 정의하여 사용할 수 있다.
 
@@ -1064,3 +1067,1015 @@ class MyException extends Exception {
   }
 }
 ```
+
+## 8. `java.lang` 패키지
+
+## 8.1. `Object` class
+
+> `Object`클래스는 모든 클래스의 최고 조상이기 때문에 `Object`클래스의 멤버들은 모든 클래스에서 바로 사용 가능하다.
+
+| 메서드 | 설명 |
+| -------- | ---- |
+| `protected Object clone()` | 객체 자신의 복사본을 반환한다. |
+| `public boolean equals(Object obj)` | 객체 자신과 객체 obj가 같은 객체인지 알려준다. |
+| `protected void finalize()` | 객체가 소멸될 때 가비지 컬렉터에 의해 자동적으로 호출된다. 이 때 수행되어야하는 코드가 있는 경우에만 오버라이딩한다. |
+| `public Class getClass()` | 객체 자신의 클래스 정보를 담고 있는 Class인스턴스를 반환한다. |
+| `public int hashCode()` | 객체 자신의 해시코드를 반환한다. |
+| `public String toString()` | 객체 자신의 정보를 문자열로 반환한다. |
+| `public void notify()` | 객체 자신을 사용하려고 기다리는 쓰레드를 하나만 깨운다. |
+| `public void notifyAll()` | 객체 자신을 사용하려고 기다리는 모든 쓰레드를 깨운다. |
+| `public void wait()`<br>`public void wait(long timeout)`<br>`public void wait(long timeout, int nanos)` | 다른 쓰레드가 `notify()`나 `notifyAll()`을 호출할 때까지 현재 쓰레드를 무한히 또는 지정된 시간(timeout, nanos)둥안 기다리게 한다.
+
+## 8.2. `String` class
+
+> 한번 생성된 String 인스턴스가 갖고 있는 문자열은 읽어 올 수만 있고, 변경할 수 는 없다.
+> 예를들어 `+`연산자를 이용해서 문자열을 결합하는 경우 인스턴스내의 문자열이 바뀌는 것이 아니라 새로운 문자열이 담긴 String인스턴스가 생성된다.
+
+> 따라서 문자열간의 결합이나 추출 등 문자열을 다루는 작업이 많이 필요한 경우에는 String클래스 대신 StringBuffer클래스를 사용하는 것이 좋다.
+> String인스턴스와는 달리 StringBuffer인스턴스에 저장된 문자열은 변경이 가능하므로 StringBuffer인스턴스만으로도 문자열을 다루는 것이 가능하다.
+
+### 8.2.1. 빈 문자열(empty string)
+
+```java
+String s = null;
+char c = '\u0000';
+
+String s - ""; // 빈 문자열로 초기화
+char c = ' '; // 공백으로 초기화
+```
+
+상세 메서드에 대한 사항은 아래 링크를 확인 바랍니다.
+> [java.lang.String](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html)
+
+문자열의 형변환: 
+
+| 기본형 > 문자열 | 문자열 > 기본형 |
+| -------- | -------- |
+| `String valueOf(boolean b)`<br>`String valueOf(char c)`<br>`String valueOf(int i)`<br>`String valueOf(long l)`<br>`String valueOf(float f)`<br>`String valueOf(double d)` | `boolean` - `Boolean.getBoolean(String s)`<br>`byte` - `Byte.parseByte(String s)`<br>`short` - `Short.parseShort(String s)`<br>`int` - `Integer.parseInt(String s)`<br>`long` - `Long.parseLong(String s)`<br>`float` - `Float.parseFloat(String s)`<br>`double` - `Double.parseDouble(String s)`
+
+## 8.3. `StringBuffer` class
+
+> 내부적으로 문자열 편직을 위한 버퍼(buffer)를 가지고 있으며, `StringBuffer`인스턴스를 생성할 때 그 크기를 생성할 수 있다.
+> 편집할 문자열의 크기를 고려하여 버퍼의 크기를 충분히 잡아주는 것이 좋다. (작업효율로 인함)
+
+### 8.3.1. `StringBuffer`클래스의 생성자
+
+```java
+public StringBuffer(int length) {
+  value = new char[length];
+  shared = false;
+}
+
+public StringBuffer() {
+  this(16); // 버퍼의 크기를 지정하지 않으면 버퍼의 크기는 16이 된다.
+}
+
+public StringBuffer(String str) {
+  this(str.length() + 16); // 지정한 문자열의 길이보다 16이 더 크게 버퍼를 생성한다.
+  append(str);
+}
+```
+
+### 8.3.2. `StringBuffer`인스턴스의 비교
+
+> StringBuffer인스턴스에 담긴 문자열을 비교하기 위해서는 StringBuffer인스턴스에 `toString()`을 호출해서 String인스턴스를 얻은 다음, 여기에 `equals`메서드를 사용해서 비교해야한다.
+>> StringBuffer클래스는 `equals`메서드를 오버라이딩 하지 않는다.
+
+상세 메서드에 대한 사항은 아래 링크를 확인 바랍니다.
+> [java.lang.StringBuffer](https://docs.oracle.com/javase/7/docs/api/java/lang/StringBuffer.html)
+
+## 8.4. `Math` & `Wrapper` class
+
+### 8.4.1. `Math`클래스
+
+상세 메서드에 대한 사항은 아래 링크를 확인 바랍니다.
+> [java.lang.Math](https://docs.oracle.com/javase/7/docs/api/java/lang/Math.html)
+
+### 8.4.2. `wapper`클래스
+
+> 기본형(primitive type) 변수도 때로는 객체로 다루어져야하는 경우가 있다. 예를 들면, 매개변수로 객체를 요구할 때, 기본형 값이 아닌 객체로 저장해야할 때, 객체간의 비교가 필요할 때 등등의 경우에는 기본형 값들을 객체로 변환하여 작업을 수행해야한다.
+> 8개의 기본형을 대표하는 8개의 wapper클래스가 있는데, 이 클래스들을 이용하면 기본형 값을 객체로 다룰 수 있다.
+
+wrapper클래스의 생성자:
+
+| 기본형 | 래퍼클래스 | 생성자 |
+| :--: | :--: | ---- |
+| `boolean` | `Boolean` | `Boolean(boolean value)`<br>`Boolean(String s)` |
+| `char` | `Character` | `Character(char value)` |
+| `byte` | `Byte` | `Byte(byte value)`<br>`Byte(String s)` |
+| `short` | `Short` | `Short(short value)`<br>`Short(String s)` |
+| `int` | `Integer` | `Integer(int value)`<br>`Integer(String s)` |
+| `long` | `Long` | `Long(long value)`<br>`Long(String s)` |
+| `float` | `Floot` | `Floot(double value)`<br>`Floot(float value)`<br>`Floot(String s)` |
+| `double` | `Double` | `Double(double value)`<br>`Double(String s)`|
+
+
+문자열을 기본형 또는 wrapper클래스로 변환하는 방법:
+
+| 문자열 > 기본형 | 문자열 > wrapper클래스 |
+| ---- | ---- |
+| `byte b = Byte.parseByte("100");` | `Byte b = Byte.valueOf("100");` |
+| `short s = Short.parseShort("100");` | `Short s = Short.valueOf("100");` |
+| `int i = Integer.parseInt("100");` | `Integer i = Integer.valueOf("100");` |
+| `long l = Long.parseLong("100");` | `Long l = Long.valueOf("100");` |
+| `float f = Float.parseFloat("3.14");` | `Float f = Float.valueOf("3.14");` |
+| `double d = Double.parseDouble("3.14");` | `Double d = Double.valueOf("3.14");` |
+
+> JDK1.5부터 도입된 오토박싱(autoboxing) 기능 때문에 반환값이 기본형일 때와 wrapper클래스일 대의 차이가 없어졌다. 그래서 그냥 구별없이 `valueOf()`를 쓰는 것도 괜찮은 방법이다. 단, 성능을 비교하자면 `valueOf()`가 조금 더 느리다.
+
+```java
+int i = Integer.parseInt("100");
+int i = Integer.valueOf("100");
+
+long l = Long.parseLong("100");
+long l = Long.valueOf("100");
+```
+
+### 8.4.3. Number클래스
+
+> Number클래스 자손으로 `BigInteger`와 `BigDecimal` 등이 있는데, `BigInteger`는 `long`으로도 다룰 수 없는 큰 범위의 정수를, `BigDecimal`은 `double`로도 다룰 수 없는 큰 범위의 부동 소수점수를 처리하기 위한 것으로 연산자의 역할을 대신하는 다양한 메서드를 제공한다.
+
+
+## 9. 내부 클래스
+
+## 9.1. 내부 클래스(inner class)
+
+> 내부 클래스는 클래스 내에 선언된 클래스로, 두 클래스 간 긴밀한 관계에 있다.
+
+> ▶ 내부 클래스의 장점
+> - 내부 클래스에서 외부 클래스의 멤버들을 쉽게 접근할 수 있다.
+> - 코드의 복잡성을 줄일 수 있다.(캡슐화)
+
+> 내부 클래스는 주로 AWT나 Swing과 같은 GUI어플리케이션의 이벤트처리 이외는 잘 사용하지 않을 정도로 사용빈도가 높지 않다.
+
+```java
+class A { // 외부 클래스
+  // ...
+  
+  class B { // 내부 클래스
+    // ...
+  }
+  
+  // ...
+}
+```
+
+## 9.2. 내부 클래스의 종류와 특징
+
+내부 클래스의 종류와 특징:
+
+| 내부 클래스 | 특징 |
+| ---- | ---- |
+| 인스턴스 클래스<br>(instance class) | 외부 클래스의 멤버변수 선언위치에 선언하며, 외부 클래스의 인스턴스멤버처럼 다루어진다. 주로 외부 클래스의 인스턴스멤버들과 관련된 작업에 사용될 목적으로 선언된다. |
+| 스태틱 클래스<br>(static class) | 외부 클래스의 멤버변수 선언위치에 선언하며, 외부 클래스의 static멤버처럼 다루어진다. 주로 외부 클래스의 static멤버, 특히 static메서드에서 사용될 목적으로 선언된다. |
+| 지역 클래스<br>(local class) | 외부 클래스의 메서드나 초기화블럭 안에 선언하며, 선언된 영역 내부에서만 사용될 수 있다. |
+| 익명 클래스<br>(anonymous class) | 클래스의 선언과 객체의 생성을 동시에 하는 이름없는 클래스(일회용) |
+
+
+## 9.3. 내부 클래스의 제어자와 접근성
+
+> 내부 클래스도 클래스이기 때문에 `abstract`나 `final`과 같은 제어자를 사용할 수 있을 뿐만 아니라, 멤버변수들처럼 `private`, `protected`과 접근제어자도 사용이 가능하다.
+
+> 내부 클래스 중에서 스태틱 클래스(StaticInner)만 static멤버를 가질 수 있다. 드문 경우지만 내부 클래스에 static변수를 선언해야한다면 스태틱 클래스로 선언해야한다.
+
+>> 컴파일 했을 때 생성되는 파일명은 '**외부클래스명$내부클래스명.class**'형식으로 되어있다.
+
+## 9.4. 익명 클래스(anonymous class)
+
+> 익명클래스는 특이하게도 다른 내부 클래스들과는 달리 이름이 없다. 클래스 선언과 객체의 생성을 동시에 하기 때문에 단 한번만 사용될 수 있고 오직 하나의 객체만을 생성할 수 있는 일회용 클래스이다.
+
+>> 컴파일 했을 때 익명클래스는 이름이 없기 때문에 '**외부클래스명$숫자.class**'의 형식으로 클래스파일명이 결정된다.
+
+## 10. 컬랙션 프레임웍과 유용한 클래스
+
+> 자바에서는 많은 수의 다양한 패키지(Java API)를 제공하여 개발자들이 자바 어플리케이션을 쉽게 개발할 수 있도록 도와준다. 그래서 자바에서 제공하는 패키지는 어떤 것들이 있는지, 이들 패ㅣ지에서는 어떤 클래스들이 있는지 아는 것이 중요하다.
+
+**자주 사용되는 클래스**
+
+> 1. 컬랙션 프레임웍(Collection Framework)
+>> 다수의 데이터를 쉽게 처리할 수 있는 표준화된 방법을 제공하는 클래스들
+> 2. 유용한 클래스 - 알아두면 좋은 자주 쓰이는 클래스들
+> 3. 형식화 클래스 - 데이터를 표준화된 형식으로 출력하는데 도움을 주는 클래스들
+
+## 10.1. 컬렉션 프레임웍(Collection Framework)
+
+### 10.1.1 컬랙션 프레임웍의 핵심 인터페이스 - `List`, `Set`, `Map`
+
+** 컬렉션 프레임웍의 핵심 인터페이스 간의 상속계층도**
+
+![Collection Framework Hierarchy](https://t1.daumcdn.net/cfile/tistory/175466144CC11C2755)
+
+**컬랙션 프레임웍의 핵심 인터페이스와 특징**
+
+| 인터페이스 | 특징 |
+| :--: | ---- |
+| `List` | 순서가 있는 데이터의 집합. 데이터의 중복을 허용한다.<br>`ArrayList`, `LinkedList`, `Stack`, `Vector` |
+| `Set` | 순서를 유지하지 않는 데이터의 집합. 데이터의 중복을 허용하지 않는다.<br>`HashSet`, `TreeSet` |
+| `Map` | 키(key)와 값(value)의 쌍(pair)으로 이루어진 데이터의 집합으로,<br>순서는 유지되지 않으며, 키는 중복을 허용하지 않고, 값은 중복을 허용한다.<br>`HashMap`, `TreeMap`, `HashTable`, `Properties`|
+
+
+1. Collection interface
+	상세 메서드에 대한 사항은 아래 링크를 확인 바랍니다.
+	> [java.util.Collection](https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html)
+
+2. List interface
+  > [java.util.List](https://docs.oracle.com/javase/7/docs/api/java/util/List.html)
+
+3. Set interface
+  > [java.util.Set](https://docs.oracle.com/javase/7/docs/api/java/util/Set.html)
+4. Map interface
+  > [java.util.Map](https://docs.oracle.com/javase/7/docs/api/java/util/Map.html)
+5. Map.Entry interface
+  > Map.Entry intercace는 Map interface의 내부 인터페이스이다.
+  > Map에 저장되는 key-value쌍을 다루기 위해 내부적으로 Entry interface를 정의해 놓았다.
+  > 
+  > [java.util.Map.Entry](https://docs.oracle.com/javase/7/docs/api/java/util/Map.Entry.html)
+```java
+public interface Map {
+  ...
+  interface Entry {
+    Object getKey();
+    Object getValue();
+    Object setValue(Object value);
+    boolean equals(Object o );
+    int hashCode();
+  }
+}
+```
+
+### 10.1.2. 동기화(Synchronization)
+
+> 멀티쓰레드(multi-thread) 프로그래밍에서는 하나의 객체를 여러 쓰레드가 동시에 접근할 수 있기 때문에 데이터의 일관성(consistency)을 유지하기 위해서는 동기화(synchronization)가 필요하다.
+>
+> 필요한 경우에만 `java.util.Collections`클래스의 동기화 메서드를 이용해서 동기화 한다.
+
+### 10.1.3. `Vector`와 `ArrayList`
+
+> - `Vector`와 `ArrayList` 둘 다 모두 List interface를 구현한 클래스이다.
+> - (`List`의 특징) 저장순서가 유지되고 중복을 허용한다.
+> - 데이터의 저장공간으로 배열을 사용한다.
+> - `Vector`의 경우 멀티쓰레드에 대한 동기화가 되어 있으나, `ArrayList`의 경우는 `java.util.Collections` 클래스를 이용하여 동기화 처리를 해야한다.
+
+>> [java.util.Vector](https://docs.oracle.com/javase/7/docs/api/java/util/Vector.html)
+>> [java.util.ArrayLisy](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html)
+
+#### Deep Copy vs Shallow Copy
+
+> **Shallow Copy** - 배열이나 객체를 복사할 때, 단순히 참조만 복사하는 것
+> **Deep Copy** - 원본과 같은 데이터를 저장하고 있는 새로운 객체나 배열을 생성하는 것
+
+### 10.1.4. `LinkedList`
+
+> `LindedList`의 경우 불연속적으로 존재하는 데이터를 서로 연결(link)한 형태로 구성되며, 아래와 같은 배열의 단점으 보완하기 위하여 만들어졌다.
+>> 1. 크기를 변경할 수 없다.
+>> 2. 비순차적인 데이터의 추가 또는 삭제에 시간이 많이 걸린다.
+
+> Linked list, Doubly linded list, Doubly circular linked list
+
+>> [java.util.LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html)
+
+##### ArrayList vs LinkedList
+
+| 컬렉션 | 읽기(접근시간) | 추가/삭제 | 비고 |
+| ---- | :--: | :--: | ---- |
+| `ArrayList` | 빠르다 | 느리다 | 순차적인 추가삭제는 빠르나<br>비효율적인 메모리를 사용한다.|
+| `LinkedList` | 느리다 | 빠르다 | 데이터가 많을수록 접근성이 떨어진다. |
+
+> 데이터의 개수의 변경이 잦다면 `LinkedList`를 사용하는 것이 더 나은 선택이 될 수 있다.
+
+### 10.1.5. `Stack`과 `Queue`
+
+> `Stack` - 마지막에 저장한 데이터를 가장 먼저 꺼내는 **LIFO(Last In First Out)** 구조
+>> [java.util.Stack](https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html)
+
+> `Queue` - 처음에 저장한 데이터를 가장 먼저 꺼내는 **FIFO(First In First Out)** 구조
+>> [java.util.Queue](https://docs.oracle.com/javase/7/docs/api/java/util/Queue.html)
+
+#### `Stack`과 `Queue`의 활용 범위
+
+> - `Stack` - 수식계산, 수식괄호검사, Undo/Redo, 뒤로가기/앞으로가기
+> - `Queue` - 최근사용문서, 인쇄작업 대기목록, 버퍼(buffer)
+
+### 10.1.6. `Enumeration`, `Iterator`, `ListIterator`
+
+> 컬랙션에 저장된 요소를 접근하는데 사용되는 인터페이스이다.
+
+#### `Iterator`
+
+```java
+public interface Iterator {
+  boolean hasNext();
+  Object next();
+  void remove();
+}
+
+public interface Collection {
+   // ...
+   public Iterator iterator();
+   // ...
+}
+```
+
+> `iterator()`는 Collection interface에 정의된 메서드이므로 Collection interface의 자손인 `List`와 `Set`에도 포함되어 있다.
+> 따라서, 컬랙션 클레스에 대해 `iterator()`를 호출하여 `Iterator`을 얻은 다음 반복문을 사용해서 컬랙션클래스의 요소들을 읽어올 수 있다.
+
+```java
+List list = new ArrayList();
+
+Iterator it = list.iterator();
+
+while(it.hasNext()) {
+  Object o = it.next();
+  // ...
+}
+```
+
+#### `Enumeration`과 `ListIterator`
+
+> - `Enumeration`은 `Iterator`의 구버전으로 가능하면 `Iterator`을 사용하는것이 좋다.
+> - `ListIterator`는 `Iterator`를 상속받아서 기능을 추가한 것으로, 컬렉션의 요소에 접근할 때 `Iterator`는 단방향으로만 이동할 수 있는 데 반해 `ListIterator`는 양방향으로의 이동이 가능하다. 다만, `ArrayList`나 `LinkedList`와 같이 `List` interface를 구현한 컬렉션에서만 사용할 수 있다.
+
+### 10.1.7. `HashSet`
+
+> `HashSet`은 `Set` interface를 구현한 가장 대표적인 컬렉션이며, `Set` interface의 특징으로 `HashSet`은 중복된 요소를 저장하지 않는다.
+> - `LinkedHashSet`의 경우 중복을 허용하지 않는 동시에 순서를 유지한다.
+>> [java.util.HashSet](https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html)
+
+> `HashSet`의 `add`method는 새로운 요소를 추가하기 전에 기존에 저장된 요소와 같은 것인지 판별하기 위해 추가하려는 요소의 `equals()`와 `hashCode()`를 호출하기 때문에 이 두 메소드를 목적에 맞게 오버라이딩해야 한다.
+
+### 10.1.8. `TreeSet`
+
+> 이진검색트리(Binary search tree)라는 자료구조의 형태로 데이터를 저장하는 클래스이다.
+> 이진검색트리는 정렬, 검색, 범위탐색(range search)에 뛰어난 성능을 보이는 자료구조이며,
+> `TreeSet`은 이진검색트리의 성능을 향상시킨 '레드-블랙 트리(Red-Black Tree)'로 구현되어 있다.
+
+> 중복된 데이터의 저장을 허용하지 않으며, 정렬된 위치에 저장하므로 저장순서를 유지하지도 않는다.
+
+#### 이진검색트리(Binary search tree)
+> - 모든 노드는 최대 두 개의 자식노드를 가질 수 있다.
+> - 왼쪽 자식노드의 값은 부모노드의 값보다 작고, 오른쪽자식노드의 값은 부모노드의 값보다 커야한다.
+> - 노드의 추가 삭제에 시간이 걸린다. (순차저장이 아닌 방식이기 때문)
+> - 검색과 정렬에 유리하다. (저장시 정렬된 위치에 저장하기 때문)
+
+### 10.1.9. `Comparator`와 `Comparable`
+
+> `Comparable`와 `Comparable`은 모두 인터페이스로 객체들을 정렬 또는 이진검색트리를 구성하는데 필요한 메서드를 정의하고 있다.
+
+> - `Comparable` - 기본 정렬기준을 구현하는데 사용. (`java.lang`)
+> - `Comparator` - 기본 정렬기준 외에 다른 기준으로 정렬하고자 할 때 사용 (`java.util`)
+
+```java
+public interface Comparable {
+  public int compareTo(Object o);
+}
+
+public interface Comparator {
+  int compare(Object o1, Object o2); // (*)
+  boolean equals(Object obj);
+}
+```
+
+The example of usage:
+```java
+import java.util.*
+
+class ComparatorExample {
+  public staic void main(String args) {
+    TreeSet set1 = new TreeSet();
+    TreeSet set2 = new TreeSet(new Decending());
+    
+    int[] score = {30, 50, 10, 20, 40};
+    
+    for (int i = 0; i < score.length; i++) {
+      set1.add(new Integer(score[i]));
+      set2.add(new Integer(score[i]));
+    }
+    
+    System.out.println("set1 : " + set1);
+    System.out.println("set2 : " + set2);
+  }
+}
+
+class Decending implements Comparator {
+  public int compare(Object o1, Object o2) {
+    if ( o1 instanceof Comparable && o2 instanceof Comparable ) {
+      Comparable c1 = (Comparable)o1;
+      Comparable c2 = (Comparable)o2;
+      
+      return c1.compareTo(c2) * -1;
+    }
+  }
+}
+```
+
+
+### 10.1.10. `Hashtable`과 `HashMap`
+
+> `HashMap`은 `Map`을 구현했으므로 앞에서 살펴본 `Map`의 특징, 키(key)와 값(value)를 묶어서 하나의 데이터(entry)로 저장한다는 특징을 갖는다. 또한, 해싱(hashing)을 사용하기 때문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 보인다.
+>> [java.util.HashMap](https://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html)
+
+> - 키(key) - 컬렉션 내의 키(key) 중에서 유일해야 한다.
+> - 값(value) - 키(key)와 달리 데이터의 중복을 허용한다.
+
+> `HashMap`은 데이터의 키와 값을 모두 `Object`타입으로 저장하기 때문에 `HashMap`의 값(value)으로 `HashMap`을 다시 저장할 수 있다. 이렇게 함으로써 하나의 키에 다시 복수의 데이터를 저장할 수 있다.
+
+#### 해싱(Hashing)
+> 해싱이란 해시함수(hash function)를 이용해서 데이터를 해시테이블(hash table)에 저장하고 검색하는 기법을 말한다. 해시한수는 데이터가 저장되어 있는 곳을 알려주기 때문에 다량의 데이터 중에서도 원하는 데이터를 빠르게 찾을 수 있다.
+>> `HashMap`에 저장된 데이터를 찾는 과정:
+>> 1. 검색하고자 하는 값의 키로 해시함수를 호출한다.
+>> 2. 해시함수의 계산결과인 해시코드를 이용해서 해당 값이 저장되어 있는 링크드리스트를 찾는다.
+>> 3. 링크드리스트에서 검색한 키와 일치하는 데이터를 찾는다.
+>>> 하나의 링크드리스트에 최소한의 데이터만 저장되려면, 저장될 데이터의 크기를 고려해서 `HashMap`의 크기를 적절하게 지정해주어야 하고, 해시함수가 서로 다른 키에 대해서 중복된 해시코드의 반환을 최소화해야 한다.
+
+### 10.1.11. `TreeMap`
+
+> 이름에서 알 수 있듯이 이진검색트리의 형태로 키와 값의 쌍으로 이루어진 데이터를 저장한다. 그래서 검색과 정렬에 적합한 컬렉션 클래스이다.
+> 검색에 관한한 대부분의 경우에서 `HashMap`이 `TreeMap`보다 더 뛰어나므로 `HashMap`을 사용하는 것이 좋다. 다만 범위검색이나 정렬이 필요한 경우에는 `TreeMap`을 사용하자.
+
+>> [java.util.TreeMap](https://docs.oracle.com/javase/7/docs/api/java/util/TreeMap.html)
+
+### 10.1.12. `Properties`
+
+> `Properties`의 경우 키와 값을 `(Object, Object)`의 형태로 저장하는 `HashMap`와는 다르게 `(String, String)`의 형태로 저장하는 보다 단순화된 컬렉션 클래스이다.
+> 주로 어플리케이션의 환경설정과 관련된 속성(property)를 저장하는데 사용하며, 데이터를 파일로부터 읽고 쓰는 편리한 기능을 제공한다.
+
+### 10.1.13. 컬렉션 클래스 정리 & 요약
+
+![java의정석 2nd edition](https://t1.daumcdn.net/cfile/tistory/1546C7404F0291EB2A)
+
+| 컬렉션 | 특징 |
+| ---- | ---- |
+| `ArrayList` | 배열기반, 데이터의 추가와 삭제에 불리, 순차적인 추가삭제는 제일 빠름.<br>임의의 요소에 대해 접근성(accessibility)이 뛰어남. |
+| `LinkedList` | 연결기반, 데이터의 추가와 삭제에 유리, 임의의 요소에 대한 접근성이 좋지 않다. |
+| `HashMap` | 배열과 연결이 결합된 형태, 추가, 삭제, 검색, 접근성이 모두 뛰어남, 검색에는 최고성능을 보인다. |
+| `TreeMap` | 연결기반, 정렬과 검색(특히 범위검색)에 적합. 검색성능은 `HashMap`보다 떨어진다. |
+| `Stack` | `Vector`을 상속받아 구현 |
+| `Queue` | `LinkedList`가 `Queue`인터페이스를 구현 |
+| `Properties` | `Hashtable`을 상속받아 구현 |
+| `HashSet` | `HashMap`을 이용해서 구현 |
+| `TreeSet` | `TreeMap`을 이용해서 구현 |
+| `LinkedHashMap`<br>`LinkedHashSet` | `HashMap`과 `HashSet`에 저장순서유지기능을 추가하였음. |
+
+
+## 10.2. 유용한 클래스들 (Skiped)
+
+## 10.3. 형식화 클래스
+
+> 형식화 클래스는 `java.text`패키지에 포함되어 있으며, 숫자, 날짜 ,텍스트 데이터를 일정한 형식에 맞게 표현할 수 있는 방법을 객체지향적으로 설계하여 표준화한 클레스이다.
+
+
+| 클래스 | 특징 |
+| :--: | ---- |
+| `DecimalFormat` | 숫자 데이터를 정수, 부동소수점, 금액 등의 다양한 형식으로 표현할 수 있도록 지원 |
+| `SimpleDateFormat` | `Date`와 `Calendar`의 날짜 데이터를 원하는 표현할 수 있도록 지원 |
+| `ChoiceFormat` | 특정 범위에 속하는 값을 문자열로 변환하고자 할 때 사용 |
+| `MessageFormat` | 데이터를 정해진 양식에 맞게 출력할 수 있도록 지원 |
+
+
+## 10.4. 제네릭스(Generics)
+
+> **제네릭스(Generics)**란 다양한 타입의 객체들을 다루는 메서드나 컬렉션의 클래스에 컴파일 시의 타입 체크(compile-time type check)를 해주는 기능이다. 객체의 타입을 컴파일 시에 체크하기 대문에 객체의 타입 안정성을 높이고 형변환의 번거로움이 줄어든다.
+
+> ▶ 제네릭스의 장점
+> 1. 타입 안정성을 제공한다.
+> 2. 타입체크와 형변환을 생략할 수 있으므로 코드가 간결해진다.
+
+> - `T` - 타입(type), `T`는 어떠한 참조형 타입도 가능하다는 것을 의미한다.
+> - `E` - 요소(element)
+> - `K` - 키(key)
+> - `V` - 값(value)
+>> 이들은 기호의 종류만 다를 뿐 **'임의의 참조형 타입'**을 의미한다는 것은 모두 같다.
+
+### 10.4.1. `ArrayList<E>`
+
+The Syntax of `ArrayList<E>`:
+```java
+// 컬렉션클래스<저장할 객체의 타입> 변수명 = new 컬렉션클래스<저장할 객체의 타입>();
+
+ArrayList<Tv> = new ArrayList<Tv>();
+```
+
+The usage of `?`:
+```java
+public static printAll(ArrayList<? extends Product> list1, ArrayList<? extends Product> list2) {
+  // ...
+}
+
+// 'T'라는 타입이 Product의 자손타입이라는 것을 미리 정의해놓고 사용
+public static <T extends Product> printall(ArrayList<T> list1, ArrayList<T> list2) {
+  // ...
+}
+```
+
+### 10.4.2. `Iterator<E>`
+
+```java
+public interface Iterator<E> {
+  boolean hasNext();
+  E next();
+  void remove();
+}
+```
+
+### 10.4.3. `Comparable<T>`과 `Collections.sort()`
+
+```java
+public interface Comparable<T> {
+  public int compareTo(T o);
+}
+```
+
+The syntax of `Collections.sort()`:
+```java
+public static <T extends Comparable<? super T>> void sort(List<T> list)
+```
+
+> `<? extends T>` - T 또는 T의 자손 타입을 의미한다.
+> `<? super T>` - T 또는 T의 조상 타입을 의미한다.
+
+### 10.4.4. `HashMap<K, V>`
+
+## 11. 쓰레드
+
+## 11.1. 프로세스와 쓰레드
+
+> - **프로세스(Process)** - 실행중인 프로그램. 운영체제로부터 자원을 할당받는 작업의 단위
+> - **쓰레드(Thread)** - 프로세스가 할당받은 자원을 이용해서 실제로 작업을 수행하는 실행의 단위
+>> 멀티쓰레드 프로세스(Multi-threaded process) - 둘 이상의 쓰레드를 가진 프로세스
+
+### 11.1.1. 메모리 영역(Code, Data, Heap, Stack)
+
+| 영역 | 설명 |
+| :--: | ---- |
+| 코드(Code) 영역 | 프로그램의 코드 자체가 적재되는 영역(프로그램 자체 영역) |
+| 데이터(Data) 영역 | 프로그램이 실행되면서 필요한 변수(global var, static var)가 저장되는 영역<br>종료시까지 유지되는 변수를 위한 영역 |
+| 힙(Heap) 영역 | Reference type(참조 타입)을 위한 영역<br>가비지 컬렉터에 의해 소멸됨 |
+| 스택(Stack) 영역 | Primitive type(기본 타입)을 위한 영역<br>함수 내에 정의된 변수(Local var)를 위한 영역 |
+
+### 11.1.2. Multi Process vs Multi Thread
+
+> 멀티 프로세스와 멀티 쓰레드는 모두 '동시에 두 가지 이상의 루틴을 실행할 수 있는 역할'을 한다.
+
+> 멀티 스레드가 멀티 프로세스에 비해 가지는 이점
+> 1. 컨텍스트 스위칭(Context switching)시에 공유 메모리 만큼의 시간(자원)의 손실이 줄어든다.
+> 2. 스택(Stack) 영역을 제외한 나머지 영역을 공유하여 효율적인 일처리가 가능하다.
+
+> 하지만, 공유 자원 사용에 따른 발생할 수 있는 동기화에 주의해야 하며, 교착상태와 같은 문제가 발생하지 않도록 주의해야 한다.
+>> 교착상태 - 두 쓰레드가 자원을 점유한 상태에서 서로 상대편이 점유한 자원을 사용하려고 기다리느라 진행이 멈춰있는 상태
+
+## 11.2. 쓰레드의 구현과 실행
+
+#### `Thread` 클래스 상속
+```java
+class MyThread extends Thread {
+  public void run() { /* 작업내용 */ }
+}
+
+class MyThreadEx {
+  public static void main(String args[]) {
+    MyThread t = MyThread();
+    t.start();
+  }
+}
+```
+
+#### `Runnable` 인터페이스 구현
+```java
+class MyThread implements Runnable {
+  public void run() { /* 작업내용 */ }
+}
+
+class MyThreadEx {
+  public static void main(String args[]) {
+    Runnable r = new MyThread();
+    Thread t = new Thread(r);
+
+    t.start();
+  }
+}
+```
+
+> 한 번 사용한 쓰레드는 다시 재사용이 불가능하다. 즉, 하나의 쓰레드에 대해 `start()`가 한 번만 호출될 수 있다.
+> 한 번 더 작업이 수행되어야 한다면 새로운 쓰레드를 생성 한 다음에 `start()`를 호출해야 한다.
+
+## 11.3. `start()`와 `run()`
+
+> `start()`는 새로운 쓰레드가 작업을 실행하는데 필요한 호출스택(call stack)을 생성한 다음에 `run()`을 호출해서, 생성된 호출스택에 `run()`이 첫 번째로 저장되게 한다.
+> 모든 쓰레드는 독립적인 작업을 수행하기 위해 자신만의 호출스택을 필요로 하기 때문에, 새로운 쓰레드를 생성하고 실행시킬 때마다 새로운 호출스택이 생성되고 쓰레드가 종료되면 작업에 사용된 호출스택은 소멸된다.
+>> 쓰레드 간에는 스택(Stack) 영역을 제외한 나머지 메모리 영역은 공유 됨
+
+## 11.4. 싱글쓰레드와 멀티쓰레드
+
+![Single-Multi-Thread](https://t1.daumcdn.net/cfile/tistory/233F943B5819887D0C)
+
+> 두 개의 작업을 처리할 때 **싱글 쓰레드**의 경우 하나의 작업을 마친 후 다른 작업을 시작하지만,
+> **멀티 쓰레드**의 경우 짧은 시간동안 2개의 쓰레드가 번갈아 가면서 동시에 두 작업을 처리한다.
+>> 컨텍스트 스위칭(Context switching) - 쓰레드간의 작업전환시 현재 진행중인 작업의 상태,
+>> 예를 들면 다음에 실행해야할 위치(PC, 프로그램 카운터) 등의 정보를 저장하고 읽어오는데 시간이 소요된다.
+>> - 참고로 쓰레드의 스위칭에 비해 프로세스의 스위칭이 더 많은 정보를 저장해야하므로 더 많은 시간이 소요된다.(멀티쓰레드의 이점)
+
+## 11.5. 쓰레드의 우선순위
+
+> 쓰레드는 **우선순위(priority)**라는 속성(멤버변수)을 가지고 있는데, 이 우선순위의 값에 따라 쓰레드가 얻는 실행시간이 달라진다.
+
+```java
+void setPriority(int newPrioirty) { /* ... */ };
+int getPriority() { /* ... */ };
+
+public static final int MAX_PRIORITY = 10; // 최대 우선순위 (높을수록 우선순위가 높음)
+public static final int MIN_PRIORITY = 1; // 최소 우선순위
+public static final int NORM_PRIORITY = 5;
+```
+
+## 11.6. 쓰레드 그룹(thread group)
+
+> 서로 관련된 쓰레드를 그룹으로 묶어서 관리할 수 있음
+> 쓰레드 그룹은 보안상의 이유로 도입된 개념으로, 자신이 속한 쓰레드 그룹이나 하위 쓰레드 그룹은 변경할 수 있지만 다른 쓰레드 그룹의 쓰레드를 변경할 수 는 없다.
+>> `ThreadGroup`
+
+**쓰레드를 쓰레드 그룹에 포함하기** - `Thread`의 생성자 이용
+```java
+Thread(ThreadGroup group, String name)
+Thread(ThreadGroup group, Runnable target)
+Thread(ThreadGroup group, Runnable target, String name)
+Thread(ThreadGroup group, Runnable target, String name, long stackSize)
+```
+
+## 11.7. 데몬 쓰레드(daemon thread)
+
+> 데몬 쓰레드는 다른 일반 쓰레드의 작업을 돕는 보조적인 역할을 수행하는 쓰레드이다.
+> 일반 쓰레드가 모두 종료되면 데몬 쓰레드는 강제적으로 자동 종료되는데, 그 이유는 데몬 쓰레드는 일반 쓰레드의 보조역할을 수행하므로 일반 쓰레드가 모두 종료되고 나면 데몬 쓰레드의 존재가 없의가 없어지기 때문이다.
+>> [Examples] 가비지 컬렉터, 자동저장기능, 화면자동갱신 등
+
+```java
+boolean isDeamon() { /* ... */ } // 쓰레드가 데몬 쓰레이드인지 확인하는 메서드
+void setDaemon(boolean on) { /* ... */ } // 쓰레드를 데몬 쓰레드로 또는 일반 쓰레드로 변경한다.
+```
+
+## 11.8. 쓰레드의 실행제어
+
+> 효율적인 멀티쓰레드를 만들기 위해서는 보다 정교한 스케줄링을 통해 프로세스에게 주어진 자원과 시간을 여러 쓰레드가 낭비없이 잘 사용하도록 프로그래밍 해야한다.
+
+
+#### 쓰레드의 상태
+
+| 상태 | 설명 |
+| ---- | ---- |
+| NEW | 쓰레드가 생성되고 아직 `start()`가 호출되지 않은 상태 |
+| RUNNABLE | 실행 중 또는 실행 가능한 상태 |
+| BLOCKED | 동기화블럭에 의해서 일시정지된 상태(lock이 풀릴 때까지 기다리는 상태) |
+| WAITING,<br>TIMED_WAITING | 쓰레드의 작업이 종료되지는 않았지만 실행가능하지 않은(unrunnable) 일시정지 상태. TIME_WAITING은 일시정지시간이 지정된 경우를 의미한다. |
+| TERMINATED | 쓰레드의 작업이 종료된 상태 |
+
+## 11.9. 쓰레드의 동기화
+
+> 멀티쓰레드 프로세스의 경우 여러 쓰레드가 같은 프로세스 내 자원을 공유해서 작업하기 때문에 서로의 작업에 영향을 주지 않게하기 위해서 **동기화** 처리를 해야한다.
+
+### 11.9.1. `syncronized`를 이용한 동기화
+
+> 키워드 `synchronized`는 해당 작업과 관련된 공유데이터에 lock을 걸어서 먼저 작업중이던 쓰레드가 작업을 완전히 마칠 때까지 다른쓰레드에게 제어권이 넘어가더라도 데이터가 변경되지 않도록 보호함으로써 쓰레드의 동기화를 가능하게 한다.
+
+1. 특정한 객체에 lock을 걸고자 할 때
+
+```java
+synchronized(객체의 참조변수) {
+  // ...
+}
+```
+
+2. 메서드에 lock을 걸고자 할 때
+
+```java
+public synchronized void calcSum() {
+  // ...
+}
+```
+
+### 11.9.2. `wait()`과 `notify()`
+
+> ▶ `wait()`, `notify()`, `notifyAll()`
+> - Object에 정의되어 있다.
+> - 동기화 블록(synchronized block) 내에서만 사용 가능하다.
+> - 보다 효율적인 동기화를 가능하게 한다.
+
+> ▶ 실행 과정
+> 1. 쓰레드가 `wait()`을 호출하면 그 때까지 자신이 객체에 걸어 놓았던 모든 lock을 풀고, `wait()`이 호출된 객체의 대기실(wating pool)에서 기다리게 된다.
+> 2. 다른 쓰레드에 의해서 그 객체에 대해 `notify()` 또는 `notifyAll()`을 호출하면 객체의 대기실을 벗어나서 다시 실행대기상태, 즉 객체의 waiting pool을 벗어나 실행대기 열에서 자신이 실행될 차례를 기다리는 상태가 된다.
+
+
+## 12. 입출력(I/O)
+
+## 12.1. 자바에서의 입출력
+
+### 12.1.1 스트림(stream)
+
+> **스트림**이란? 데이터를 운반하는데 사용되는 연결통로를 말한다.
+
+### 12.1.2. 바이트기반 스트림 - `InputStream`, `OutputStream`
+
+####입출력 대상에 다른 입력/출력스트림의 종류
+
+| 입력스트림 | 출력스트림 | 입출력 대상의 종류 |
+| -------- | -------- | -------- |
+| `FileInputStream` | `FileOutputStream` | 파일 |
+| `ByteArrayInputStream` | `ByteArrayOutputStream` | 메모리(byte배열) |
+| `PipedInputStream` | `PipedOutputStream` | 프로세스(프로세스간의 통신) |
+| `AudioInputStream` | `AudioOutputStream` | 오디오장치 |
+
+#### `InputStream`과 `OutputStream`에 정의된 읽기와 쓰기를 수행하는 메서드
+
+| InputStream | OutputStream |
+| ------------- | -------------- |
+| `abstract int read()` | `abstract void write(int b)` |
+| `int read(byte[] b)` | `void write(byte[] b)` |
+| `int read(byte[] b, int off, int len)` | `void write(byte[] b, int off, int len)` |
+
+### 12.1.3. 보조스트림
+
+> 보조스트림은 실제 데이터를 주고받는 스트림이 아니기 때문에 데이터를 입출력할 수 있는 기능은 없지만, 스트림의 기능을 향상시키거나 새로운 기능을 추가할 수 있다.
+
+#### 보조스트림의 종류
+| 입력 | 출력 | 설명 |
+| ---- | ---- | ---- |
+| `FilterInputStream` | `FilterOutputStream` | 필터를 이용한 입출력 처리 |
+| `BufferedInputStream` | `BufferedOutputStream` | 버퍼를 이용한 입출력 처리 |
+| `DataInputStream` | `DataOutputStream` | `int`, `float`과 같은 기본형 단위로 데이터를 처리하는 기능 |
+| `SequenceInputStream` | `SequenceOutputStream` | 두 개의 스트림을 하나로 연결 |
+| `LineNumberInputStream` | 없음 | 읽어 온 데이터의 라인 번호를 카운트 |
+| `ObjectInputStream` | `ObjectOutputStream` | 데이터를 객체단위로 읽고 쓰는데 사용.<br>주로 파일을 이용하며 객체 직렬화와 관련있음 |
+| 없음 | `PrintStream` | 버퍼를 이용하며, 추가적인 print관련 기능<br>(print, printf, println메서드 제공) |
+| `PushbackInputStream` | 없음 | 버퍼를 이용해서 읽어 온 데이터를 다시 되돌리는 기능<br>(unlead, push back to buffer) |
+
+### 12.1.4. 문자기반 스트림 - `Reader`, `Writer`
+
+> Java에서는 한 문자를 의미하는 char형이  1 byte가 아니라 2byte이기 때문에 바이트기반 스트림으로 2byte인 문자를 처리하는데 어려움이 따른다. 이 점을 보완하기 위해서 문자기반의 스트림이 제공된다.
+>> 문자데이터를 입출력할 때는 바이트기반 스트림 대신 문자기반 스트림을 이용하자.
+<table><tr><td>InputStream</td><td> → </td><td>Reader</td></tr><tr><td>OutputStream</td><td> → </td><td>Writer</td></tr></table>
+
+#### 바이트기반 스트림과 문자기반 스트림의 비교
+
+| 바이트기반 스트림 | 문자기반 스트림 |
+| ---- | ---- |
+| `FileInputStream`<br>`FileOutputStream` | `FileReader`<br>`FileOuter` |
+| `ByteArrayInputStream`<br>`ByteArrayOutputStream` | `CharArrayReader`<br>`CharArrayWriter` |
+| `PipedInputStream`<br>`PipedOutputStream` | `PipedReader`<br>`PipedWriter` |
+| `StringBufferInputStream`<br>`StringBufferOutputStream`<br>**`(deprecated)`** | `StringReader`<br>`StringWriter` |
+
+#### 문자기반 스트림에 정의된 읽기와 쓰기를 수행하는 메서드
+
+| Reader | Writer |
+| ------ | ------ |
+| `int read()` | `void write(int c)` |
+| `int read(char[] cbuf)` | `void write(char[] cbuf)` |
+| `abstract int read(char[] cbuf, int off, int len)` | `abstract void write(char[] cbuf, int off, int len)` |
+|  | `void write(String str)` |
+|  | `void write(String, int off, int len)` |
+
+
+#### 문자기반 보조스트림
+
+| 입력 | 출력 |
+| --- | --- |
+| `BufferedReader` | `BufferedWriter` |
+| `FilterReader` | `FilterWriter` |
+| `LineNumberReader` |  |
+|  | `PrintWriter` |
+| `PushbackReader` | | |
+
+## 12.2. 바이트기반 스트림
+
+## 12.2.1. `InputStream`과 `OutputStream`
+> - [java.io.InputStream](https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html)
+> - [java.io.OutputStream](https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html)
+
+## 12.2.2. `ByteArrayInputStream`과 `ByteArrayOutputStream`
+
+> 메모리, 즉 바이트배열에 데이터를  입출력 하는데 사용되는 스트림이다. 주로 다른 곳에 입출력하기 전에 데이터를 임시로 바이트배열에 담아서 변환 등의 작업으 하는데 사용된다.
+
+> - [java.io.ByteArrayInputStream](https://docs.oracle.com/javase/7/docs/api/java/io/ByteArrayInputStream.html)
+> - [java.io.ByteArrayOutputStream](https://docs.oracle.com/javase/7/docs/api/java/io/ByteArrayOutputStream.html)
+
+## 12.2.3. `FileInputStream`과 `FileOutputStream`
+
+> 파일의 입출력을 위한 스트림으로 실제로 많이 사용되는 스트림 중의 하나이다.
+
+> - [java.io.FileInputStream](https://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html)
+> - [java.io.FileOutputStream](https://docs.oracle.com/javase/7/docs/api/java/io/FileOutputStream.html)
+
+## 12.3. 바이트기반 보조스트림
+
+### 12.3.1. `FilterInputStream`과 `FilterOutputStream`
+
+> `InputStream`/`OutputStream`의 자손이면서 모든 보조스트림의 조상이다.
+
+> `FilterdInputStream`의 자손 - `BufferdInputStream`, `DataInputStream`, `PushbackInputStream` 등
+> `FilterdOutputStream`의 자손 - `BufferedOutputStream`, `DataOutputStream`, `PrintStream` 등
+
+### 12.3.2. `BufferedInputStream`과 `BufferedOutputStream`
+
+> 스트림의 입출력 효율을 높이기 위해 버퍼를 사용하는 보조스트림이다. 한 바이트씩 입력하는 것 보다는 버퍼(바이트배열)를 이용해서 한 번에 여러 바이트를 입출력하는 것이 빠르기 때문에 대부분의 입출력 작업에 사용된다.
+
+> 생성자를 통한 인스턴스 생성 시 버퍼의 사이즈를 지정하지 않으면 기본적으로 8192 byte 크기의 버퍼를 갖게 된다.
+
+> `BufferedOutputStream`의 경우 버퍼가 가득 찼을 때만 출력소스에 출력을 하기 때문에, 마지막 출력부분이 출력소스에 쓰여지도록 `close()`나 `flush()`를 호출해야한다.
+
+### 12.3.3. `DataInputStream`과 `DataOutputStream`
+
+> `DataInputStream`/`DataOutputStream`은 각각 `DataInput`/`DataOutput`인터페이스를 구현하였으며, 데이터를 읽고 쓰는데 있어서 byte단위가 아닌, 8가지 기본 자료형의 단위로 읽고 쓸 수 있다는 장점이 있다.
+
+### 12.3.4. `SequenceInputStream`
+
+> 여러 개의 입력스트림을 연속적으로 연결해서 하나의 스트림으로부터 데이터를 읽는 것과 같이 처리할 수 있도록 지원하는 스트림이다.
+
+### 12.3.5. `PrintStream`
+
+> 데이터를 기반스트림에 대양한 형태로 출력할 수 있는 `print`, `println`, `printf`와 같은 메서드를 오버로딩하여 제공한다.
+
+> `PrintStream`과 `PrintWriter`는 거의 같은 기능을 가지고 있지만 `PrintWriter`가 `PrintStream`에 비해 다양한 언어의 문자를 처리하는데 적합하기 때문에 가능하면 `PrintWriter`를 사용하는 것이 좋다.
+
+## 12.4. 문자기반 스트림
+
+### 12.4.1. `Reader`과 `Writer`
+
+> byte배열 대신 char배열을 사용한다는 것 외에는 `InputStream`/`OutputStream`의 메서드와는 다르지 않다.
+
+> 문자기반 스트림이라는 것이 단순히 2 byte로 스트림을 처리하는 것만을 의미하지는 않는다. 문자 데이터를 다루는데 필요한 또 하나의 정보는 인코딩(encoding)이다.
+> 문자기반 스트림, 즉 `Reader`/`Writer` 그리고 그 자손들은 여러 종류의 인코딩과 자바에서 사용하는 유니코드간의 변환을 자동적으로 처리해준다.
+
+### 12.4.2. `FileReader`와 `FileWriter`
+
+> 파일로부터 텍스트데이터를 읽고, 파일에 쓰는데 사용된다.
+
+### 12.4.3. `PipedReader`와 `PipedWriter`
+
+> 쓰레드 간에 데이터를 주고받을 때 사용한다. 다른 스트림과는 달리 입력과 출력스트림을 하나의 스트림으로 연결(connect)해서 데이터를 주고받는다는 특징이 있다.
+
+### 12.4.4. `StringReader`와 `StringWriter`
+
+> `CharArrayReader`/`CharArrayWriter`와 같이 입출력 대상이 메모리인 스트림이다.
+
+## 12.5. 문자기반의 보조스트림
+
+### 12.5.1. `BufferedReader`와 `BufferedWriter`
+
+> 버퍼를 이용해서 입출력의 효율을 높일 수 있도록 해주는 역할을 한다. 버퍼를 이용하면 입출력의 효율이 비교할 수 없을 정도로 좋아지기 때문에 사용하는 것이 좋다.
+> - `BufferedReader`의 `readLine()`을 사용하면 데이터를 라인단위로 읽어올 수 있다는 장점이 있다.
+
+### 12.5.2. `InputStreamReader`와 `OutputStreamWriter`
+
+> 바이트기반 스트림을 문자기반 스트림으로 연결시켜주는 역할을 한다.
+> 그리고 바이트기반 스트림의 데이터를 지정된 인코딩의 문자데이터로 변환하는 작업을 수행한다.
+
+## 12.6. 직렬화(Serialization)
+
+> **직렬화(Serialization)** - 객체를 데이터 스트림으로 만드는 것을 뜻한다. 다시 얘기하면 객체에 저장된 데이터를 스트림에 쓰기(write)위해 연속적인(serial) 데이터로 변환하는 것을 말한다.
+> 반대로 스트림으로부터 데이터를 읽어서 객체를 만드는 것을 역직렬화(deserialization)이라 한다.
+
+####'객체를 저장한다'의 의미
+객체를 저장한닫는 것은 객체의 모든 인스턴스변수의 값을 저장한다는 것과 같은 의미를 뜻한다.
+
+####어떻게 직렬화를 해야할까?
+객체를 직렬화/역직렬화 할 수 있는 `ObjectInputStream`과 `ObjectOutputStream`을 이용하면 된다.
+
+### 12.6.1. `OutputInputStream`과 `ObjectOutputStream`
+
+> - 직렬화(스트림에 객체를 출력) - `ObjectOutputStream` 사용
+> - 역직렬화(스트림으로부터 객체를 입력) - `ObjectInputStream` 사용
+
+```java
+ObjectInputStream(InputStream in)
+ObjectOutputStream(OutputStream out)
+```
+
+> - [ObjectInputStream](https://docs.oracle.com/javase/7/docs/api/java/io/ObjectInputStream.html)
+> - [ObjectOutputStream](https://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html)
+
+####직렬화 작업시간 단축
+직렬화 작업시간을 단축시키려면 직렬화하고자 하는 객체의 클래스에 추가적으로 다음과 같은 2개의 메서드를 직접 구현해주어야 한다.
+
+```java
+private void writeObject(ObjectOutputStream out) throws IOException {
+  // write메서드를 사용해서 직렬화를 수행한다.
+}
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+  // read메서드를 사용해서 역직렬화를 수행한다.
+}
+```
+
+### 12.6.2. 직렬화가 가능한 클래스 만들기 - `Serializable`, `transient`
+
+> 직렬화가 가능한 클래스가 만드는 방법은 간단하다. 직렬화하고자 하는 클래스가 `java.io.Serializable` 인터페이스를 구현하도록 하면 된다.
+>> `Serializable` 인터페이스는 아무런 내용도 없는 빈 인터페이스지만, 직렬화를 고려하여 작성한 클래스인지를 판단하는 기준으로 사용한다.
+>> 단, `Serializable`을 구현한 클래스를 상속받을 경우 별도의 구현이 필요하지 않다.
+>> `public interface Serializable { }`
+
+#### 직렬화 대상에서 재외하기
+> 직렬화하면 안되는 값에 대하여 `transient`를 사용하면 된다.
+> `transient`를 붙이면 인스턴스변수의 값은 그타입의 기본값으로 직렬화 된다.
+
+#### 직렬화/역직렬화 시 고려사항
+객체를 역직렬화 할 때는 직렬화할 때의 순서와 일치시켜야 한다. 예를들어 직렬화 할 때 `paramMap1`, `paramMap2`, `list`의 순서로 처리하였다면, 역직렬화 시에도 마찬가지로 `paramMap1`, `paramMap2`, `list`의 순서로처리해야 한다.
+> 직렬화할 객체가 많을 때는 각 객체를 개별적으로 직렬화하는 것보다 `ArrayList`와 같은 컬렉션에 저장해서 직렬화하는 것이 좋다. (순서를 고려하지 않아도 되기 때문)
+
+####직렬화되지 않은 조상으로부터 상속받은 인스턴스변수 직렬화
+
+```java
+private void writeObject(ObjectOutputStream out) throws IOException {
+  // ...
+  // out.writeUTF(name);
+  // out.writeUTF(password);
+  out.defaultWriteObject();
+}
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+  // ...
+  // name = in.readUTF();
+  // password = in.readUTF();
+  in.defaultReadObject();
+}
+```
+
+# 12.6.3. 직렬화가능한 클래스의 버전관리
+
+> 직렬화된 객체를 역직렬화할 때는 직렬화 했을 때와 같은 클래스를 사용해야한다. 그러나 클래스의 이름이 같더라도 클래스의 내용이 변경된 경우 역질렬화는 실패하게 된다.
+>> `serialVersionUID`
+
+#### 수동으로 클래스의 버전을 관리하기
+
+아래와같이 `serialVersionUID`를 정의해주면, 클래스의 내용이 바뀌어도 클래스의 버전이 자동생성된 값으로 변경되지 않는다.
+
+```java
+class MyData implements java.io.Serializable {
+  static final long serialVersionUID = 192038109238910710L;
+  int value1;
+}
+```
+
+> `serialVersionUID`의 값은 정수값이면 어떠한 값으로도 지정할 수 있지만 서로 다른 클래스 간에 같은 값을 갖지 않도록 `serialver.exe`를 사용해서 생성된 값을 사용하는것이 보통이다.
+
+## 13. 네트워킹(Networking)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
