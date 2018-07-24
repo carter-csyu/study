@@ -14,7 +14,7 @@
 
 ## Prerequisites
 
-- yarn install` Module required for starting.
+- `yarn install` Module required for starting.
 
 ## How to start
 

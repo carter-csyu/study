@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
-import CounterContainer from 'containers/CounterContainer';
+import Buttons from './Buttons';
+import CounterListContainer from 'containers/CounterListContainer';
+import * as counterActions from 'store/modules/counter';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
+    const { onCreate, onRemove } = this.props;
+
     return (
-      <CounterContainer />
+      <div>
+        <Buttons 
+          onCreate={onCreate}
+          onRemove={onRemove}
+        />
+        <CounterListContainer />
+      </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  onCreate: () => dispatch(counterActions.create('black')),
+  onRemove: () => dispatch(counterActions.remove())
+});
+
+export default connect(undefined, mapDispatchToProps)(App);
